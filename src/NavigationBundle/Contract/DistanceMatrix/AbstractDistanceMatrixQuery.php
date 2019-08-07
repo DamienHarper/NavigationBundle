@@ -107,12 +107,12 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return DistanceMatrixResponseInterface
-     *
      * @throws DestinationException
      * @throws OriginException
      * @throws ResponseException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return DistanceMatrixResponseInterface
      */
     public function execute(): DistanceMatrixResponseInterface
     {
@@ -141,9 +141,9 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
      * @param string $method
      * @param string $url
      *
-     * @return ResponseInterface
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return ResponseInterface
      */
     private function request(string $method, string $url): ResponseInterface
     {
@@ -207,5 +207,4 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
             throw new DestinationException('Destination must be set.');
         }
     }
-
 }

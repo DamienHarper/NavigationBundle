@@ -9,11 +9,11 @@ final class ProviderNotRegistered extends \RuntimeException
 {
     /**
      * @param string $providerName
-     * @param array $registeredProviders
+     * @param array  $registeredProviders
      *
      * @return ProviderNotRegistered
      */
-    public static function create(string $providerName, array $registeredProviders = []): ProviderNotRegistered
+    public static function create(string $providerName, array $registeredProviders = []): self
     {
         return new self(sprintf(
             'Provider "%s" is not registered, so you cannot use it. Did you forget to register it or made a typo?%s',
@@ -25,7 +25,7 @@ final class ProviderNotRegistered extends \RuntimeException
     /**
      * @return ProviderNotRegistered
      */
-    public static function noProviderRegistered(): ProviderNotRegistered
+    public static function noProviderRegistered(): self
     {
         return new self('No provider registered.');
     }

@@ -37,12 +37,13 @@ class DHNavigationExtension extends Extension
 
     /**
      * @param ContainerBuilder $container
-     * @param array $config
+     * @param array            $config
      */
     private function loadProviders(ContainerBuilder $container, array $config): void
     {
         foreach ($config['providers'] as $providerName => $providerConfig) {
             $factoryClass = null;
+
             try {
                 $factoryService = $container->getDefinition($providerConfig['factory']);
                 $factoryClass = $factoryService->getClass() ?: $providerConfig['factory'];

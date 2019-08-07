@@ -21,7 +21,6 @@ interface ProviderFactoryInterface
      * @param string $providerName the name the user has chosen for this provider
      *
      * @throws \LogicException                                                        If the factory has missing dependencies
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException If an option name is undefined
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException   If an option doesn't fulfill the specified validation rules
      * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException   If a required option is missing
