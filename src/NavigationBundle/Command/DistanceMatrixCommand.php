@@ -54,7 +54,7 @@ The <info>distance-matrix:compute</info> command will compute a distance matrix 
 
 You can force a provider with the "provider" option.
 
-<info>php bin/console distance-matrix:compute "Eiffel Tower" --provider=google_maps</info>
+<info>php bin/console distance-matrix:compute --from="45.834278,1.260816" --to="44.830109,-0.603649" --provider=here</info>
 HELP
             );
     }
@@ -79,7 +79,7 @@ HELP
         $distanceMatrix = new DistanceMatrixQuery($this->providerAggregator->getProvider());
 
 //        $now = new \DateTime('now', new \DateTimeZone('GMT+2'));
-//        $provider->setDepartureTime($now->add(new \DateInterval('P1D')));
+//        $distanceMatrix->setDepartureTime($now->add(new \DateInterval('P1D')));
 
         foreach ($input->getOption('from') as $from) {
             $distanceMatrix->addOrigin($from);
