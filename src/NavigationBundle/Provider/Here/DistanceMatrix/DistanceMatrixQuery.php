@@ -162,9 +162,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
             'app_code' => $this->getProvider()->getAppCode(),
             'avoid' => $this->avoid,
             'mode' => $this->getRoutingMode().';'.$this->getTransportMode().';traffic:'.$this->getTrafficMode(),
-//            'mode' => 'fastest;car;traffic:enabled',
-//            'mode' => 'fastest;car;traffic:default',
-//            'mode' => 'fastest;car;traffic:disabled',
             'summaryAttributes' => 'traveltime,distance,costfactor',
         ];
 
@@ -196,7 +193,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         }
         $parameters = implode('&', $parameters);
         $url = ($this->getProvider()->isCitEnabled() ? self::CIT_ENDPOINT_URL : self::ENDPOINT_URL).'?'.$parameters;
-dump($url);
 
         return $url;
     }
