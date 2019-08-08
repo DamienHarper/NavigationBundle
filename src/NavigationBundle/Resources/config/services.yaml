@@ -26,3 +26,4 @@ services:
     dh_navigation.manager:
         class: DH\NavigationBundle\NavigationManager
         arguments: ["@dh_navigation.provider_aggregator"]
+        public: true

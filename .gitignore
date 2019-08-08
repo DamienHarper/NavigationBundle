@@ -2,6 +2,7 @@
 .idea/
 .php_cs.cache
 .phpunit.result.cache
+phpunit.xml
 /vendor/
 /tests/coverage/
 composer.lock
