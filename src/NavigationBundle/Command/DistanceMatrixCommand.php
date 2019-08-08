@@ -2,7 +2,7 @@
 
 namespace DH\NavigationBundle\Command;
 
-use DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixQuery;
+use DH\NavigationBundle\NavigationManager;
 use DH\NavigationBundle\Provider\ProviderAggregator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DistanceMatrixCommand extends Command implements ContainerAwareInterface
 {
-    protected static $defaultName = 'distance-matrix:compute';
+    protected static $defaultName = 'navigation:distance-matrix';
 
     /**
      * @var null|ContainerInterface
@@ -23,16 +23,16 @@ class DistanceMatrixCommand extends Command implements ContainerAwareInterface
     private $container;
 
     /**
-     * @var ProviderAggregator
+     * @var NavigationManager
      */
-    private $providerAggregator;
+    private $manager;
 
     /**
-     * @param ProviderAggregator $providerAggregator
+     * @param NavigationManager $manager
      */
-    public function __construct(ProviderAggregator $providerAggregator)
+    public function __construct(NavigationManager $manager)
     {
-        $this->providerAggregator = $providerAggregator;
+        $this->manager = $manager;
 
         parent::__construct();
     }
@@ -43,8 +43,8 @@ class DistanceMatrixCommand extends Command implements ContainerAwareInterface
     protected function configure()
     {
         $this
-            ->setName('distance-matrix:compute')
-            ->setDescription('Computes distance matrix')
+            ->setName('navigation:distance-matrix')
+            ->setDescription('Computes a distance matrix')
             ->addOption('provider', null, InputOption::VALUE_REQUIRED)
             ->addOption('from', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Origin')
             ->addOption('to', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Destination')
@@ -73,10 +73,10 @@ HELP
         }
 
         if ($input->getOption('provider')) {
-            $this->providerAggregator->using($input->getOption('provider'));
+            $this->manager->using($input->getOption('provider'));
         }
 
-        $distanceMatrix = new DistanceMatrixQuery($this->providerAggregator->getProvider());
+        $distanceMatrix = $this->manager->createDistanceMatrixQuery();
 
 //        $now = new \DateTime('now', new \DateTimeZone('GMT+2'));
 //        $distanceMatrix->setDepartureTime($now->add(new \DateInterval('P1D')));

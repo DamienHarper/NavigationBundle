@@ -2,6 +2,8 @@
 
 namespace DH\NavigationBundle\Provider\Here;
 
+use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
+use DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixQuery;
 use DH\NavigationBundle\Provider\ProviderInterface;
 
 class Here implements ProviderInterface
@@ -59,11 +61,25 @@ class Here implements ProviderInterface
         return $this->app_code;
     }
 
+    /**
+     * @return bool
+     */
     public function isCitEnabled(): bool
     {
         return $this->useCIT;
     }
 
+    /**
+     * @return DistanceMatrixQueryInterface
+     */
+    public function createDistanceMatrixQuery(): DistanceMatrixQueryInterface
+    {
+        return new DistanceMatrixQuery($this);
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName();
