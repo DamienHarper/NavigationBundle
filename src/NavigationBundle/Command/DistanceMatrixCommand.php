@@ -3,7 +3,6 @@
 namespace DH\NavigationBundle\Command;
 
 use DH\NavigationBundle\NavigationManager;
-use DH\NavigationBundle\Provider\ProviderAggregator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Helper\Table;
