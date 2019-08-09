@@ -76,8 +76,7 @@ Configuration
 
 ### Providers
 
-By default, NavigationBundle won't audit any entity, you have to configure 
-which entities have to be audited.
+Credentials for providers (API tokens/keys) have to be defined in the `dh_navigation.yaml` configuration file.
 
 ```yaml
 // config/packages/dh_navigation.yaml
@@ -87,7 +86,7 @@ dh_navigation:
             factory: DH\NavigationBundle\Provider\Here\HereFactory
             options:
                 app_id: "HERE_APP_ID"
-                app_code: "%HERE_APP_CODE"
+                app_code: "HERE_APP_CODE"
                 use_cit: false
         google_maps:
             factory: DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
