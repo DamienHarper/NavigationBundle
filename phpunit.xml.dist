@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.0/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         executionOrder="depends,defects"
+         forceCoversAnnotation="true"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         verbose="true">
+
+    <logging>
+        <log type='coverage-html' target='tests/coverage' />
+    </logging>
+
+    <php>
+        <server name="HERE_APP_ID" value="YOUR_APP_ID" />
+        <server name="HERE_APP_CODE" value="YOUR_APP_CODE" />
+        <server name="USE_CIT" value="true" />
+    </php>
+
+    <testsuites>
+        <testsuite name="NavigationBundle test suite">
+            <directory suffix="Test.php">tests/NavigationBundle</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

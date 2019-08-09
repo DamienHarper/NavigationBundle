@@ -1,0 +1,29 @@
+services:
+    dh_navigation.command.distance_matrix:
+        class: DH\NavigationBundle\Command\DistanceMatrixCommand
+        arguments: ['@dh_navigation.manager']
+        tags:
+            - { name: 'console.command', command: 'navigation:distance-matrix' }
+
+    DH\NavigationBundle\Command\DistanceMatrixCommand:
+        alias: dh_navigation.command.distance_matrix
+        public: true
+
+    DH\NavigationBundle\Provider\:
+        resource: '../../Provider'
+        public: false
+
+    DH\NavigationBundle\Provider\ProviderAggregator:
+        class: DH\NavigationBundle\Provider\ProviderAggregator
+
+    dh_navigation.provider_aggregator:
+        alias: 'DH\NavigationBundle\Provider\ProviderAggregator'
+
+    DH\NavigationBundle\NavigationManager:
+        alias: dh_navigation.manager
+        public: true
+
+    dh_navigation.manager:
+        class: DH\NavigationBundle\NavigationManager
+        arguments: ["@dh_navigation.provider_aggregator"]
+        public: true
