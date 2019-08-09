@@ -3,10 +3,12 @@
 namespace DH\NavigationBundle\Tests;
 
 use DH\DoctrineAuditBundle\Tests\BaseTest;
+use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
 use DH\NavigationBundle\Exception\ProviderNotRegistered;
 use DH\NavigationBundle\Provider\ProviderInterface;
 
 /**
+ * @covers \DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery
  * @covers \DH\NavigationBundle\DependencyInjection\Compiler\AddProvidersPass
  * @covers \DH\NavigationBundle\DependencyInjection\Compiler\FactoryValidatorPass
  * @covers \DH\NavigationBundle\DependencyInjection\Configuration
@@ -90,5 +92,18 @@ class NavigationManagerTest extends BaseTest
         $this->expectException(ProviderNotRegistered::class);
 
         $this->manager->using('yo');
+    }
+
+    /**
+     * @depends testGetKnownProvider
+     */
+    public function testCreateDistanceMatrixQuery(): void
+    {
+        $query = $this->manager
+            ->using('here')
+            ->createDistanceMatrixQuery()
+        ;
+
+        $this->assertInstanceOf(DistanceMatrixQueryInterface::class, $query);
     }
 }
