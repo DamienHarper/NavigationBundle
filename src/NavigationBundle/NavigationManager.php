@@ -5,6 +5,7 @@ namespace DH\NavigationBundle;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
 use DH\NavigationBundle\Exception\UnsupportedFeatureException;
 use DH\NavigationBundle\Provider\ProviderAggregator;
+use DH\NavigationBundle\Provider\ProviderInterface;
 
 class NavigationManager
 {
@@ -32,6 +33,11 @@ class NavigationManager
         return $this;
     }
 
+    /**
+     * @throws UnsupportedFeatureException
+     *
+     * @return DistanceMatrixQueryInterface
+     */
     public function createDistanceMatrixQuery(): DistanceMatrixQueryInterface
     {
         $provider = $this->providerAggregator->getProvider();
@@ -41,5 +47,23 @@ class NavigationManager
         }
 
         throw new UnsupportedFeatureException(sprintf('Distance Matrix is not supported by "%s" provider.', $provider->getName()));
+    }
+
+    /**
+     * @param null|string $name
+     *
+     * @return ProviderInterface
+     */
+    public function getProvider(?string $name = null): ProviderInterface
+    {
+        return $this->providerAggregator->getProvider($name);
+    }
+
+    /**
+     * @return array
+     */
+    public function getProviders(): array
+    {
+        return $this->providerAggregator->getProviders();
     }
 }
