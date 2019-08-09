@@ -25,11 +25,30 @@ abstract class BaseTest extends TestCase
 
         $config = Yaml::parse(file_get_contents(__DIR__.'/Fixtures/dh_navigation.yaml'));
 
+        $config = $this->setupFromEnvVars($config);
+
         $extension = new DHNavigationExtension();
         $extension->load($config, $container);
 
         $container->compile();
 
         $this->manager = $container->get('dh_navigation.manager');
+    }
+
+    private function setupFromEnvVars(array $array): array
+    {
+        $output = [];
+        foreach ($array as $key => $value) {
+            if (!\is_array($value)) {
+                foreach ($_ENV as $k => $v) {
+                    $value = str_replace('%env('.$k.')%', $v, $value);
+                }
+                $output[$key] = $value;
+            } else {
+                $output[$key] = $this->setupFromEnvVars($value);
+            }
+        }
+
+        return $output;
     }
 }

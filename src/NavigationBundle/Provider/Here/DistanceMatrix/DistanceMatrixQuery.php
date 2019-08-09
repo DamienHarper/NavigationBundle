@@ -146,14 +146,14 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     }
 
     /**
+     * @see https://developer.here.com/documentation/routing/topics/resource-calculate-matrix.html
+     *
      * @throws ResponseException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws DestinationException
      * @throws OriginException
      *
      * @return ResponseInterface
-     *
-     * @see https://developer.here.com/documentation/routing/topics/resource-calculate-matrix.html
      */
     protected function buildRequest(): string
     {

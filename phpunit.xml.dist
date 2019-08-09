@@ -14,9 +14,9 @@
     </logging>
 
     <php>
-        <server name="HERE_APP_ID" value="YOUR_APP_ID" />
-        <server name="HERE_APP_CODE" value="YOUR_APP_CODE" />
-        <server name="USE_CIT" value="true" />
+        <env name="HERE_APP_ID" value="YOUR_APP_ID" />
+        <env name="HERE_APP_CODE" value="YOUR_APP_CODE" />
+        <env name="USE_CIT" value="true" />
     </php>
 
     <testsuites>

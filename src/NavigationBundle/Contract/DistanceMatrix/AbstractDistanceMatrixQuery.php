@@ -79,9 +79,9 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return array
+     * @return ?array
      */
-    public function getOrigins(): array
+    public function getOrigins(): ?array
     {
         return $this->origins;
     }
@@ -99,9 +99,9 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return array
+     * @return ?array
      */
-    public function getDestinations(): array
+    public function getDestinations(): ?array
     {
         return $this->destinations;
     }

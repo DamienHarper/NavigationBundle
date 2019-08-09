@@ -24,9 +24,9 @@ interface DistanceMatrixQueryInterface
     public function addOrigin($origin): self;
 
     /**
-     * @return array
+     * @return ?array
      */
-    public function getOrigins(): array;
+    public function getOrigins(): ?array;
 
     /**
      * @param string $destination
@@ -36,9 +36,9 @@ interface DistanceMatrixQueryInterface
     public function addDestination($destination): self;
 
     /**
-     * @return array
+     * @return ?array
      */
-    public function getDestinations(): array;
+    public function getDestinations(): ?array;
 
     /**
      * @return DistanceMatrixResponseInterface

@@ -44,8 +44,7 @@ abstract class AbstractFactory implements ProviderFactoryInterface
             $resolver->resolve($options);
         } catch (\Exception $e) {
             $message = sprintf(
-                'Error while configure provider "%s". Verify your configuration at "bazinga_geocoder.providers.%s.options". %s',
-                $providerName,
+                'Error while configure provider "%s". Verify your configuration. %s',
                 $providerName,
                 $e->getMessage()
             );

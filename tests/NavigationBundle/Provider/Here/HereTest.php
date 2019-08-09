@@ -1,0 +1,42 @@
+<?php
+
+namespace DH\NavigationBundle\Tests\Provider\Here;
+
+use DH\NavigationBundle\Provider\Here\Here;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @covers \DH\NavigationBundle\Provider\Here\Here
+ */
+class HereTest extends TestCase
+{
+    /**
+     * @var Here
+     */
+    private $here;
+
+    public function setUp(): void
+    {
+        $this->here = new Here('app-id', 'app-code', true);
+    }
+
+    public function testGetName(): void
+    {
+        $this->assertSame('here', $this->here->getName());
+    }
+
+    public function testGetAppId(): void
+    {
+        $this->assertSame('app-id', $this->here->getAppId());
+    }
+
+    public function testGetAppCode(): void
+    {
+        $this->assertSame('app-code', $this->here->getAppCode());
+    }
+
+    public function testIsCitEnabled(): void
+    {
+        $this->assertTrue($this->here->isCitEnabled());
+    }
+}
