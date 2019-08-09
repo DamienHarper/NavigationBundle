@@ -32,9 +32,6 @@ class DHNavigationBundleTest extends TestCase
         $extension = new DHNavigationExtension();
         $extension->load([], $container);
 
-//        $container->set('entity_manager', $em);
-//        $container->setAlias('doctrine.orm.default_entity_manager', 'entity_manager');
-
         $container->compile();
 
         $manager = $container->get('dh_navigation.manager');

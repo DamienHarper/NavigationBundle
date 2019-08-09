@@ -14,7 +14,7 @@ class ConfigurationTest extends TestCase
 {
     public function testGetConfigTreeBuilder(): void
     {
-        $config = Yaml::parse(file_get_contents(__DIR__.'/Fixtures/dh_navigation.yaml'));
+        $config = Yaml::parse(file_get_contents(__DIR__ . '/../Fixtures/dh_navigation.yaml'));
 
         $configuration = new Configuration(true);
         $treeBuilder = $configuration->getConfigTreeBuilder();
