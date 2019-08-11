@@ -7,6 +7,7 @@ use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
 use DH\NavigationBundle\Exception\DestinationException;
 use DH\NavigationBundle\Exception\OriginException;
+use DH\NavigationBundle\Exception\ResponseException;
 use Psr\Http\Message\ResponseInterface;
 
 class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
@@ -36,11 +37,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
      * @var string
      */
     private $avoid;
-
-    /**
-     * @var \DateTime
-     */
-    private $departure_time;
 
     /**
      * URL for API.
@@ -148,11 +144,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * @see https://developer.here.com/documentation/routing/topics/resource-calculate-matrix.html
      *
-     * @throws ResponseException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws DestinationException
-     * @throws OriginException
-     *
      * @return ResponseInterface
      */
     protected function buildRequest(): string
@@ -166,8 +157,8 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
             ]
         );
 
-        if (null !== $this->departure_time) {
-            $data['departure'] = $this->departure_time
+        if (null !== $this->getDepartureTime()) {
+            $data['departure'] = $this->getDepartureTime()
                 ->format('Y-m-d\TH:i:s')
             ;
         } else {

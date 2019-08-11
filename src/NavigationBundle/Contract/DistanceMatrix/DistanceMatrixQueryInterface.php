@@ -5,9 +5,9 @@ namespace DH\NavigationBundle\Contract\DistanceMatrix;
 interface DistanceMatrixQueryInterface
 {
     /**
-     * @return \DateTime
+     * @return ?\DateTime
      */
-    public function getDepartureTime(): \DateTime;
+    public function getDepartureTime(): ?\DateTime;
 
     /**
      * @param \DateTime $departure_time timestamp

@@ -46,9 +46,9 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return \DateTime
+     * @return ?\DateTime
      */
-    public function getDepartureTime(): \DateTime
+    public function getDepartureTime(): ?\DateTime
     {
         return $this->departure_time;
     }
