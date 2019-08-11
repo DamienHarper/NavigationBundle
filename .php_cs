@@ -1,12 +1,14 @@
 <?php
+
 $config = PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP56Migration' => true,
-        '@PHPUnit60Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        '@PHP70Migration' => true,
+        '@PHP56Migration:risky' => true,
         '@DoctrineAnnotation' => true,
+        '@PHPUnit60Migration:risky' => true,
         'align_multiline_comment' => true,
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_before_statement' => true,
@@ -32,7 +34,7 @@ $config = PhpCsFixer\Config::create()
         'no_useless_else' => true,
         'no_useless_return' => true,
         'ordered_imports' => true,
-        'php_unit_strict' => false,
+        'php_unit_strict' => true,
         'php_unit_test_annotation' => true,
         'php_unit_test_class_requires_covers' => true,
         'phpdoc_add_missing_param_annotation' => true,
