@@ -34,7 +34,7 @@ abstract class BaseTest extends TestCase
         $this->manager = $container->get('dh_navigation.manager');
 
         foreach ($this->manager->getProviders() as $provider) {
-            $provider->getClient()->setCredentials($provider->getCredentials());
+            $provider->getClient()->setProvider($provider);
         }
     }
 

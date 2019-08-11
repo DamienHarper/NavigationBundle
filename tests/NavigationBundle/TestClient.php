@@ -2,6 +2,7 @@
 
 namespace DH\NavigationBundle\Tests;
 
+use DH\NavigationBundle\Provider\ProviderInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -22,9 +23,9 @@ class TestClient implements ClientInterface
     private $client;
 
     /**
-     * @var array
+     * @var ProviderInterface
      */
-    private $credentials;
+    private $provider;
 
     public function __construct()
     {
@@ -32,13 +33,13 @@ class TestClient implements ClientInterface
     }
 
     /**
-     * @param array $credentials
+     * @param ProviderInterface $provider
      *
      * @return TestClient
      */
-    public function setCredentials(array $credentials): self
+    public function setProvider(ProviderInterface $provider): self
     {
-        $this->credentials = $credentials;
+        $this->provider = $provider;
 
         return $this;
     }
@@ -97,7 +98,7 @@ class TestClient implements ClientInterface
         $cacheKey = $uri;
         $host = parse_url($uri, PHP_URL_HOST);
 
-        foreach ($this->credentials as $key => $value) {
+        foreach ($this->provider->getCredentials() as $key => $value) {
             $cacheKey = str_replace($value, '['.$key.']', $cacheKey);
         }
 
