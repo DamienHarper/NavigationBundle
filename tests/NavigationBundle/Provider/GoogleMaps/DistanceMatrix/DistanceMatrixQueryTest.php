@@ -36,8 +36,17 @@ use DH\NavigationBundle\Exception\OriginException;
  */
 class DistanceMatrixQueryTest extends BaseTest
 {
+    protected function checkCredentials(): void
+    {
+        if (!isset($_ENV['GOOGLE_MAPS_API_KEY'])) {
+            $this->markTestSkipped('You need to configure the GOOGLE_MAPS_API_KEY value in phpunit.xml');
+        }
+    }
+
     public function testExecuteWithoutOrigin(): void
     {
+        $this->checkCredentials();
+
         $this->expectException(OriginException::class);
 
         $query = $this->manager
@@ -52,6 +61,8 @@ class DistanceMatrixQueryTest extends BaseTest
      */
     public function testExecuteWithoutDestination(): void
     {
+        $this->checkCredentials();
+
         $this->expectException(DestinationException::class);
 
         $query = $this->manager
@@ -69,6 +80,8 @@ class DistanceMatrixQueryTest extends BaseTest
      */
     public function testExecute(): void
     {
+        $this->checkCredentials();
+
         $query = $this->manager
             ->using('google_maps')
             ->createDistanceMatrixQuery()

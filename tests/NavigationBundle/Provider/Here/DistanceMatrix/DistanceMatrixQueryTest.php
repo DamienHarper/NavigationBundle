@@ -34,8 +34,17 @@ use DH\NavigationBundle\Exception\OriginException;
  */
 class DistanceMatrixQueryTest extends BaseTest
 {
+    protected function checkCredentials(): void
+    {
+        if (!isset($_ENV['HERE_APP_ID'], $_ENV['HERE_APP_CODE'])) {
+            $this->markTestSkipped('You need to configure the HERE_APP_ID and HERE_APP_CODE value in phpunit.xml');
+        }
+    }
+
     public function testExecuteWithoutOrigin(): void
     {
+        $this->checkCredentials();
+
         $this->expectException(OriginException::class);
 
         $query = $this->manager
@@ -50,6 +59,8 @@ class DistanceMatrixQueryTest extends BaseTest
      */
     public function testExecuteWithoutDestination(): void
     {
+        $this->checkCredentials();
+
         $this->expectException(DestinationException::class);
 
         $query = $this->manager
@@ -67,6 +78,8 @@ class DistanceMatrixQueryTest extends BaseTest
      */
     public function testExecute(): void
     {
+        $this->checkCredentials();
+
         $query = $this->manager
             ->using('here')
             ->createDistanceMatrixQuery()

@@ -1,23 +1,23 @@
 <?php
 
-namespace DH\NavigationBundle\Tests\Provider\Here;
+namespace DH\NavigationBundle\Tests\Provider\GoogleMaps;
 
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
-use DH\NavigationBundle\Provider\Here\Here;
+use DH\NavigationBundle\Provider\GoogleMaps\GoogleMaps;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery
  * @covers \DH\NavigationBundle\Provider\AbstractProvider
- * @covers \DH\NavigationBundle\Provider\Here\Here
+ * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMaps
  */
-class HereTest extends TestCase
+class GoogleMapsTest extends TestCase
 {
     /**
-     * @var Here
+     * @var GoogleMaps
      */
-    private $here;
+    private $googleMaps;
 
     protected function checkCredentials(): void
     {
@@ -28,35 +28,21 @@ class HereTest extends TestCase
 
     public function setUp(): void
     {
-        $this->here = new Here(new Client(), 'app-id', 'app-code', true);
+        $this->googleMaps = new GoogleMaps(new Client(), 'api-key');
     }
 
     public function testGetName(): void
     {
         $this->checkCredentials();
 
-        $this->assertSame('here', $this->here->getName());
+        $this->assertSame('google_maps', $this->googleMaps->getName());
     }
 
-    public function testGetAppId(): void
+    public function testGetApiKey(): void
     {
         $this->checkCredentials();
 
-        $this->assertSame('app-id', $this->here->getAppId());
-    }
-
-    public function testGetAppCode(): void
-    {
-        $this->checkCredentials();
-
-        $this->assertSame('app-code', $this->here->getAppCode());
-    }
-
-    public function testIsCitEnabled(): void
-    {
-        $this->checkCredentials();
-
-        $this->assertTrue($this->here->isCitEnabled());
+        $this->assertSame('key', $this->googleMaps->getApiKey());
     }
 
     public function testGetCredentials(): void
@@ -64,16 +50,15 @@ class HereTest extends TestCase
         $this->checkCredentials();
 
         $this->assertSame([
-            'app_id' => 'app-id',
-            'app_code' => 'app-code',
-        ], $this->here->getCredentials());
+            'key' => 'api-key',
+        ], $this->googleMaps->getCredentials());
     }
 
     public function testCreateDistanceMatrixQuery(): void
     {
         $this->checkCredentials();
 
-        $query = $this->here->createDistanceMatrixQuery();
+        $query = $this->googleMaps->createDistanceMatrixQuery();
 
         $this->assertInstanceOf(DistanceMatrixQueryInterface::class, $query);
     }
