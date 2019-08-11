@@ -42,7 +42,7 @@ class GoogleMapsTest extends TestCase
     {
         $this->checkCredentials();
 
-        $this->assertSame('key', $this->googleMaps->getApiKey());
+        $this->assertSame('api-key', $this->googleMaps->getApiKey());
     }
 
     public function testGetCredentials(): void
