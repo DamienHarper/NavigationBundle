@@ -1,0 +1,23 @@
+s:569:"{
+   "destination_addresses" : [ "1 Place Amélie Raba Léon, 33000 Bordeaux, France" ],
+   "origin_addresses" : [ "17 Avenue de la Libération, 87000 Limoges, France" ],
+   "rows" : [
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "223 km",
+                  "value" : 222689
+               },
+               "duration" : {
+                  "text" : "2 hours 43 mins",
+                  "value" : 9771
+               },
+               "status" : "OK"
+            }
+         ]
+      }
+   ],
+   "status" : "OK"
+}
+";

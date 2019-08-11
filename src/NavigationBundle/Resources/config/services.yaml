@@ -30,4 +30,5 @@ services:
 
     dh_navigation.test_http_client:
         class: DH\NavigationBundle\Tests\TestClient
+        shared: false
         public: true

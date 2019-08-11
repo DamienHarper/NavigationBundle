@@ -18,6 +18,8 @@ use DH\NavigationBundle\Provider\ProviderInterface;
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
  * @covers \DH\NavigationBundle\Provider\AbstractProvider
+ * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMaps
+ * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
  * @covers \DH\NavigationBundle\Provider\Here\Here
  * @covers \DH\NavigationBundle\Provider\Here\HereFactory
  * @covers \DH\NavigationBundle\Provider\ProviderAggregator
@@ -28,7 +30,7 @@ class NavigationManagerTest extends BaseTest
     {
         $providers = $this->manager->getProviders();
 
-        $this->assertCount(1, $providers);
+        $this->assertCount(2, $providers);
     }
 
     /**

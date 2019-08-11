@@ -7,7 +7,8 @@ dh_navigation:
                 app_id: "%env(HERE_APP_ID)%"
                 app_code: "%env(HERE_APP_CODE)%"
                 use_cit: true
-#        google_maps:
-#            factory: DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
-#            options:
-#                api_key: "%env(GMAPS_ASSET_TOKEN)%"
+        google_maps:
+            factory: DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
+            options:
+                http_client: '@dh_navigation.test_http_client'
+                api_key: "%env(GOOGLE_MAPS_API_KEY)%"

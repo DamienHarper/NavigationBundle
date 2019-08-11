@@ -5,9 +5,6 @@ namespace DH\NavigationBundle\Provider\Here\DistanceMatrix;
 use DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
-use DH\NavigationBundle\Exception\DestinationException;
-use DH\NavigationBundle\Exception\OriginException;
-use DH\NavigationBundle\Exception\ResponseException;
 use Psr\Http\Message\ResponseInterface;
 
 class DistanceMatrixQuery extends AbstractDistanceMatrixQuery

@@ -1,6 +1,6 @@
 <?php
 
-namespace DH\NavigationBundle\Tests\Provider\Here\DistanceMatrix;
+namespace DH\NavigationBundle\Tests\Provider\GoogleMaps\DistanceMatrix;
 
 use DH\DoctrineAuditBundle\Tests\BaseTest;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
@@ -24,6 +24,8 @@ use DH\NavigationBundle\Exception\OriginException;
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
  * @covers \DH\NavigationBundle\Provider\AbstractProvider
+ * @covers \DH\NavigationBundle\Provider\GoogleMaps\DistanceMatrix\DistanceMatrixQuery
+ * @covers \DH\NavigationBundle\Provider\GoogleMaps\DistanceMatrix\DistanceMatrixResponse
  * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMaps
  * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
  * @covers \DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixQuery
@@ -39,7 +41,7 @@ class DistanceMatrixQueryTest extends BaseTest
         $this->expectException(OriginException::class);
 
         $query = $this->manager
-            ->using('here')
+            ->using('google_maps')
             ->createDistanceMatrixQuery()
         ;
         $response = $query->execute();
@@ -53,7 +55,7 @@ class DistanceMatrixQueryTest extends BaseTest
         $this->expectException(DestinationException::class);
 
         $query = $this->manager
-            ->using('here')
+            ->using('google_maps')
             ->createDistanceMatrixQuery()
         ;
         $response = $query
@@ -68,7 +70,7 @@ class DistanceMatrixQueryTest extends BaseTest
     public function testExecute(): void
     {
         $query = $this->manager
-            ->using('here')
+            ->using('google_maps')
             ->createDistanceMatrixQuery()
         ;
         $response = $query

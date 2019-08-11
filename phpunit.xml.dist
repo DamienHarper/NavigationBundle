@@ -16,7 +16,7 @@
     <php>
         <env name="HERE_APP_ID" value="YOUR_APP_ID" />
         <env name="HERE_APP_CODE" value="YOUR_APP_CODE" />
-        <env name="HERE_USE_CIT" value="true" />
+        <env name="GOOGLE_MAPS_API_KEY" value="YOUR_API_KEY" />
     </php>
 
     <testsuites>

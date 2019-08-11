@@ -1,2 +1,2 @@
-s:312:"{"response":{"metaInfo":{"timestamp":"2019-08-11T10:21:42Z","mapVersion":"8.30.99.152","moduleVersion":"7.2.201931-4781","interfaceVersion":"2.6.66","availableMapVersion":["8.30.99.152"]},"matrixEntry":[{"startIndex":0,"destinationIndex":0,"summary":{"distance":222830,"travelTime":10268,"costFactor":10308}}]}}
+s:312:"{"response":{"metaInfo":{"timestamp":"2019-08-11T18:38:15Z","mapVersion":"8.30.99.152","moduleVersion":"7.2.201931-4781","interfaceVersion":"2.6.66","availableMapVersion":["8.30.99.152"]},"matrixEntry":[{"startIndex":0,"destinationIndex":0,"summary":{"distance":222830,"travelTime":10037,"costFactor":10077}}]}}
 ";
