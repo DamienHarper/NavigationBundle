@@ -3,7 +3,7 @@
 namespace DH\NavigationBundle\Tests\Provider\Here\DistanceMatrix;
 
 use DH\DoctrineAuditBundle\Tests\BaseTest;
-use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
+use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
 use DH\NavigationBundle\Exception\DestinationException;
 use DH\NavigationBundle\Exception\OriginException;
 
@@ -23,6 +23,7 @@ use DH\NavigationBundle\Exception\OriginException;
  * @covers \DH\NavigationBundle\Model\Row
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
+ * @covers \DH\NavigationBundle\Provider\AbstractProvider
  * @covers \DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixQuery
  * @covers \DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixResponse
  * @covers \DH\NavigationBundle\Provider\Here\Here
@@ -31,13 +32,6 @@ use DH\NavigationBundle\Exception\OriginException;
  */
 class DistanceMatrixQueryTest extends BaseTest
 {
-    public function testCreateDistanceMatrixQuery(): void
-    {
-        $query = $this->manager->createDistanceMatrixQuery();
-
-        $this->assertInstanceOf(DistanceMatrixQueryInterface::class, $query);
-    }
-
     public function testExecuteWithoutOrigin(): void
     {
         $this->expectException(OriginException::class);
@@ -72,6 +66,6 @@ class DistanceMatrixQueryTest extends BaseTest
             ->execute()
         ;
 
-        $this->assertInstanceOf(DistanceMatrixQueryInterface::class, $query);
+        $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
     }
 }

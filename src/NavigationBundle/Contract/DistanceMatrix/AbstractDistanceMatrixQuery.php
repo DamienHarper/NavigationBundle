@@ -6,7 +6,6 @@ use DH\NavigationBundle\Exception\DestinationException;
 use DH\NavigationBundle\Exception\OriginException;
 use DH\NavigationBundle\Exception\ResponseException;
 use DH\NavigationBundle\Provider\ProviderInterface;
-use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterface
@@ -119,7 +118,7 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
         $this->validateRequest();
         $request = $this->buildRequest();
         $rawResponse = $this->request('GET', $request);
-        $response = $this->processRawResponse($rawResponse);
+        $response = $this->buildResponse($rawResponse);
         $this->validateResponse($response);
 
         return $response;
@@ -135,7 +134,7 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
      *
      * @return DistanceMatrixResponseInterface
      */
-    abstract protected function processRawResponse(ResponseInterface $response): DistanceMatrixResponseInterface;
+    abstract protected function buildResponse(ResponseInterface $response): DistanceMatrixResponseInterface;
 
     /**
      * @param string $method
@@ -147,7 +146,7 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
      */
     private function request(string $method, string $url): ResponseInterface
     {
-        $client = new Client();
+        $client = $this->getProvider()->getClient();
         $response = $client->request($method, $url);
 
         if (200 !== $response->getStatusCode()) {

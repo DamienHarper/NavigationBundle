@@ -157,13 +157,14 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
      */
     protected function buildRequest(): string
     {
-        $data = [
-            'app_id' => $this->getProvider()->getAppId(),
-            'app_code' => $this->getProvider()->getAppCode(),
-            'avoid' => $this->avoid,
-            'mode' => $this->getRoutingMode().';'.$this->getTransportMode().';traffic:'.$this->getTrafficMode(),
-            'summaryAttributes' => 'traveltime,distance,costfactor',
-        ];
+        $data = array_merge(
+            $this->getProvider()->getCredentials(),
+            [
+                'avoid' => $this->avoid,
+                'mode' => $this->getRoutingMode().';'.$this->getTransportMode().';traffic:'.$this->getTrafficMode(),
+                'summaryAttributes' => 'traveltime,distance,costfactor',
+            ]
+        );
 
         if (null !== $this->departure_time) {
             $data['departure'] = $this->departure_time
@@ -197,7 +198,12 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $url;
     }
 
-    protected function processRawResponse(ResponseInterface $response): DistanceMatrixResponseInterface
+    /**
+     * @param ResponseInterface $response
+     *
+     * @return DistanceMatrixResponseInterface
+     */
+    protected function buildResponse(ResponseInterface $response): DistanceMatrixResponseInterface
     {
         return new DistanceMatrixResponse($response, $this->getOrigins(), $this->getDestinations());
     }

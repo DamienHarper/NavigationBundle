@@ -24,6 +24,6 @@ class ConfigurationTest extends TestCase
 
         $this->assertNotEmpty($config['providers']['here']['options']['app_id']);
         $this->assertNotEmpty($config['providers']['here']['options']['app_code']);
-        $this->assertNotEmpty($config['providers']['here']['options']['use_cit']);
+        $this->assertIsBool($config['providers']['here']['options']['use_cit']);
     }
 }

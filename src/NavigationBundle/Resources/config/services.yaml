@@ -27,3 +27,7 @@ services:
         class: DH\NavigationBundle\NavigationManager
         arguments: ["@dh_navigation.provider_aggregator"]
         public: true
+
+    dh_navigation.test_http_client:
+        class: DH\NavigationBundle\Tests\TestClient
+        public: true

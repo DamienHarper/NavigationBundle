@@ -3,10 +3,11 @@
 namespace DH\NavigationBundle\Provider\Here;
 
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
+use DH\NavigationBundle\Provider\AbstractProvider;
 use DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixQuery;
-use DH\NavigationBundle\Provider\ProviderInterface;
+use GuzzleHttp\ClientInterface;
 
-class Here implements ProviderInterface
+class Here extends AbstractProvider
 {
     /**
      * @var string
@@ -26,12 +27,15 @@ class Here implements ProviderInterface
     /**
      * Here constructor.
      *
-     * @param string $appId   an App ID
-     * @param string $appCode an App code
-     * @param bool   $useCIT  use Customer Integration Testing environment (CIT) instead of production
+     * @param ClientInterface $client
+     * @param string          $appId   an App ID
+     * @param string          $appCode an App code
+     * @param bool            $useCIT  use Customer Integration Testing environment (CIT) instead of production
      */
-    public function __construct(string $appId, string $appCode, bool $useCIT = false)
+    public function __construct(ClientInterface $client, string $appId, string $appCode, bool $useCIT = false)
     {
+        parent::__construct($client);
+
         $this->app_id = $appId;
         $this->app_code = $appCode;
         $this->useCIT = $useCIT;
@@ -67,6 +71,17 @@ class Here implements ProviderInterface
     public function isCitEnabled(): bool
     {
         return $this->useCIT;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCredentials(): array
+    {
+        return [
+            'app_id' => $this->getAppId(),
+            'app_code' => $this->getAppCode(),
+        ];
     }
 
     /**

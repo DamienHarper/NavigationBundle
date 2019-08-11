@@ -24,7 +24,6 @@ abstract class BaseTest extends TestCase
         $bundle->build($container);
 
         $config = Yaml::parse(file_get_contents(__DIR__.'/Fixtures/dh_navigation.yaml'));
-
         $config = $this->setupFromEnvVars($config);
 
         $extension = new DHNavigationExtension();
@@ -33,6 +32,10 @@ abstract class BaseTest extends TestCase
         $container->compile();
 
         $this->manager = $container->get('dh_navigation.manager');
+
+        foreach ($this->manager->getProviders() as $provider) {
+            $provider->getClient()->setCredentials($provider->getCredentials());
+        }
     }
 
     private function setupFromEnvVars(array $array): array

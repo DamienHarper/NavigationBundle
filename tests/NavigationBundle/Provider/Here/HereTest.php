@@ -2,10 +2,14 @@
 
 namespace DH\NavigationBundle\Tests\Provider\Here;
 
+use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
 use DH\NavigationBundle\Provider\Here\Here;
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @covers \DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery
+ * @covers \DH\NavigationBundle\Provider\AbstractProvider
  * @covers \DH\NavigationBundle\Provider\Here\Here
  */
 class HereTest extends TestCase
@@ -17,7 +21,7 @@ class HereTest extends TestCase
 
     public function setUp(): void
     {
-        $this->here = new Here('app-id', 'app-code', true);
+        $this->here = new Here(new Client(), 'app-id', 'app-code', true);
     }
 
     public function testGetName(): void
@@ -38,5 +42,20 @@ class HereTest extends TestCase
     public function testIsCitEnabled(): void
     {
         $this->assertTrue($this->here->isCitEnabled());
+    }
+
+    public function testGetCredentials(): void
+    {
+        $this->assertSame([
+            'app_id' => 'app-id',
+            'app_code' => 'app-code',
+        ], $this->here->getCredentials());
+    }
+
+    public function testCreateDistanceMatrixQuery(): void
+    {
+        $query = $this->here->createDistanceMatrixQuery();
+
+        $this->assertInstanceOf(DistanceMatrixQueryInterface::class, $query);
     }
 }

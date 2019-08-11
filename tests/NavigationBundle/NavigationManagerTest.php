@@ -17,6 +17,7 @@ use DH\NavigationBundle\Provider\ProviderInterface;
  * @covers \DH\NavigationBundle\Exception\ProviderNotRegistered
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
+ * @covers \DH\NavigationBundle\Provider\AbstractProvider
  * @covers \DH\NavigationBundle\Provider\Here\Here
  * @covers \DH\NavigationBundle\Provider\Here\HereFactory
  * @covers \DH\NavigationBundle\Provider\ProviderAggregator
