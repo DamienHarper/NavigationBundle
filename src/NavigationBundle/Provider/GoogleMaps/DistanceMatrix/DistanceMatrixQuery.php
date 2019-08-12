@@ -254,7 +254,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * @see https://developers.google.com/maps/documentation/distance-matrix/intro
      *
-     * @return ResponseInterface
+     * @return string
      */
     protected function buildRequest(): string
     {

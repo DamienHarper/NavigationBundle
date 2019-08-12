@@ -57,6 +57,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
 
     const TRAFFIC_MODE_ENABLED = 'enabled';
     const TRAFFIC_MODE_DISABLED = 'disabled';
+    const TRAFFIC_MODE_DEFAULT = 'default';
 
     /**
      * @param string $mode
@@ -141,7 +142,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * @see https://developer.here.com/documentation/routing/topics/resource-calculate-matrix.html
      *
-     * @return ResponseInterface
+     * @return string
      */
     protected function buildRequest(): string
     {
