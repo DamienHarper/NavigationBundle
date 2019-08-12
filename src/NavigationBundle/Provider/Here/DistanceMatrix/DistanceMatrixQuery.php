@@ -104,7 +104,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
      *
      * @return DistanceMatrixQueryInterface
      */
-    public function setTrafficMode($mode = self::TRAFFIC_MODE_ENABLED): DistanceMatrixQueryInterface
+    public function setTrafficMode($mode = self::TRAFFIC_MODE_DEFAULT): DistanceMatrixQueryInterface
     {
         $this->trafficMode = $mode;
 
@@ -116,7 +116,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
      */
     public function getTrafficMode(): string
     {
-        return $this->trafficMode ?? self::TRAFFIC_MODE_ENABLED;
+        return $this->trafficMode ?? self::TRAFFIC_MODE_DEFAULT;
     }
 
     /**
