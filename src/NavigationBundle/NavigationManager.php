@@ -3,6 +3,7 @@
 namespace DH\NavigationBundle;
 
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
+use DH\NavigationBundle\Contract\Routing\RoutingQueryInterface;
 use DH\NavigationBundle\Exception\UnsupportedFeatureException;
 use DH\NavigationBundle\Provider\ProviderAggregator;
 use DH\NavigationBundle\Provider\ProviderInterface;
@@ -47,6 +48,22 @@ class NavigationManager
         }
 
         throw new UnsupportedFeatureException(sprintf('Distance Matrix is not supported by "%s" provider.', $provider->getName()));
+    }
+
+    /**
+     * @throws UnsupportedFeatureException
+     *
+     * @return RoutingQueryInterface
+     */
+    public function createRoutingQuery(): RoutingQueryInterface
+    {
+        $provider = $this->providerAggregator->getProvider();
+
+        if (method_exists($provider, 'createRoutingQuery')) {
+            return $provider->createRoutingQuery();
+        }
+
+        throw new UnsupportedFeatureException(sprintf('Routing is not supported by "%s" provider.', $provider->getName()));
     }
 
     /**
