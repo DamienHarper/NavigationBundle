@@ -1,0 +1,66 @@
+s:1671:"{
+   "destination_addresses" : [
+      "1 Place Amélie Raba Léon, 33000 Bordeaux, France",
+      "123 Avenue Albert Thomas, 87100 Limoges, France"
+   ],
+   "origin_addresses" : [
+      "17 Avenue de la Libération, 87000 Limoges, France",
+      "5 Avenue Jean Baptiste Betout, 87250 Bessines-sur-Gartempe, France"
+   ],
+   "rows" : [
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "223 km",
+                  "value" : 222689
+               },
+               "duration" : {
+                  "text" : "2 hours 43 mins",
+                  "value" : 9771
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "1.8 km",
+                  "value" : 1780
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 398
+               },
+               "status" : "OK"
+            }
+         ]
+      },
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "255 km",
+                  "value" : 255205
+               },
+               "duration" : {
+                  "text" : "3 hours 1 min",
+                  "value" : 10868
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "36.0 km",
+                  "value" : 35968
+               },
+               "duration" : {
+                  "text" : "29 mins",
+                  "value" : 1714
+               },
+               "status" : "OK"
+            }
+         ]
+      }
+   ],
+   "status" : "OK"
+}
+";

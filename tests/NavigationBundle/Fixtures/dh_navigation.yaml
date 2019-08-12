@@ -6,7 +6,7 @@ dh_navigation:
                 http_client: '@dh_navigation.test_http_client'
                 app_id: "%env(HERE_APP_ID)%"
                 app_code: "%env(HERE_APP_CODE)%"
-                use_cit: true
+                use_cit: false
         google_maps:
             factory: DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
             options:
