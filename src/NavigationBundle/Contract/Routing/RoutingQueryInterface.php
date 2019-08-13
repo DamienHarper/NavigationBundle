@@ -30,6 +30,7 @@ interface RoutingQueryInterface
 
     /**
      * @param string $waypoint
+     * @param mixed  $origin
      *
      * @return RoutingQueryInterface
      */

@@ -15,7 +15,7 @@ class Leg
     private $end;
 
     /**
-     * @var Step[]|array
+     * @var array|Step[]
      */
     private $steps;
 
@@ -43,7 +43,7 @@ class Leg
     }
 
     /**
-     * @return Step[]|array
+     * @return array|Step[]
      */
     public function getSteps(): array
     {

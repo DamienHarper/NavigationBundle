@@ -3,12 +3,11 @@
 namespace DH\NavigationBundle\Provider\Here\DistanceMatrix;
 
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
-use DH\NavigationBundle\Helper\FormatHelper;
 use DH\NavigationBundle\Model\Address;
 use DH\NavigationBundle\Model\Distance;
+use DH\NavigationBundle\Model\DistanceMatrix\Element;
+use DH\NavigationBundle\Model\DistanceMatrix\Row;
 use DH\NavigationBundle\Model\Duration;
-use DH\NavigationBundle\Model\Element;
-use DH\NavigationBundle\Model\Row;
 use Psr\Http\Message\ResponseInterface;
 
 class DistanceMatrixResponse implements DistanceMatrixResponseInterface
@@ -34,7 +33,7 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     private $destinationAddresses;
 
     /**
-     * @var array|Row[]
+     * @var array|\DH\NavigationBundle\Model\DistanceMatrix\Row[]
      */
     private $rows;
 
@@ -125,8 +124,8 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
             }
 
             $status = 'OK';
-            $distance = new Distance(FormatHelper::formatDistance($element->summary->distance), $element->summary->distance);
-            $duration = new Duration(FormatHelper::formatTime($element->summary->travelTime), $element->summary->travelTime);
+            $distance = new Distance((int) $element->summary->distance);
+            $duration = new Duration((int) $element->summary->travelTime);
 
             $elements[] = new Element($status, $duration, $distance);
         }

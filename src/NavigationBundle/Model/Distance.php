@@ -2,42 +2,41 @@
 
 namespace DH\NavigationBundle\Model;
 
+use DH\NavigationBundle\Helper\FormatHelper;
+
 class Distance
 {
-    private $text;
-
+    /**
+     * @var int
+     */
     private $value;
 
-    /**
-     * Distance constructor.
-     *
-     * @param $text
-     * @param $value
-     */
-    public function __construct(string $text = '', int $value = -1)
+    public function __construct(int $value)
     {
-        $this->text = $text;
         $this->value = $value;
     }
 
-    public function __toString(): string
-    {
-        return $this->text;
-    }
-
     /**
-     * @return mixed
+     * @return string
      */
-    public function getText(): string
+    public function getAsText(): string
     {
-        return $this->text;
+        return FormatHelper::formatDistance($this->value);
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getValue(): int
     {
         return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getAsText();
     }
 }

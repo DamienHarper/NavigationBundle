@@ -19,8 +19,8 @@ use DH\NavigationBundle\Exception\OriginException;
  * @covers \DH\NavigationBundle\Model\Address
  * @covers \DH\NavigationBundle\Model\Distance
  * @covers \DH\NavigationBundle\Model\Duration
- * @covers \DH\NavigationBundle\Model\Element
- * @covers \DH\NavigationBundle\Model\Row
+ * @covers \DH\NavigationBundle\Model\DistanceMatrix\Element
+ * @covers \DH\NavigationBundle\Model\DistanceMatrix\Row
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
  * @covers \DH\NavigationBundle\Provider\AbstractProvider

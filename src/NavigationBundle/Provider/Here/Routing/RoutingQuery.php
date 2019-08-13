@@ -2,9 +2,9 @@
 
 namespace DH\NavigationBundle\Provider\Here\Routing;
 
+use DH\NavigationBundle\Contract\Routing\AbstractRoutingQuery;
 use DH\NavigationBundle\Contract\Routing\RoutingQueryInterface;
 use DH\NavigationBundle\Contract\Routing\RoutingResponseInterface;
-use DH\NavigationBundle\Contract\Routing\AbstractRoutingQuery;
 use Psr\Http\Message\ResponseInterface;
 
 class RoutingQuery extends AbstractRoutingQuery

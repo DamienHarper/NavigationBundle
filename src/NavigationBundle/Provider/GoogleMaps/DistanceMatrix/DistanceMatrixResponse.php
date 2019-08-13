@@ -3,12 +3,11 @@
 namespace DH\NavigationBundle\Provider\GoogleMaps\DistanceMatrix;
 
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
-use DH\NavigationBundle\Helper\FormatHelper;
 use DH\NavigationBundle\Model\Address;
 use DH\NavigationBundle\Model\Distance;
+use DH\NavigationBundle\Model\DistanceMatrix\Element;
+use DH\NavigationBundle\Model\DistanceMatrix\Row;
 use DH\NavigationBundle\Model\Duration;
-use DH\NavigationBundle\Model\Element;
-use DH\NavigationBundle\Model\Row;
 use Psr\Http\Message\ResponseInterface;
 
 class DistanceMatrixResponse implements DistanceMatrixResponseInterface
@@ -34,7 +33,7 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     private $destinationAddresses;
 
     /**
-     * @var Row[]|array
+     * @var array|\DH\NavigationBundle\Model\DistanceMatrix\Row[]
      */
     private $rows;
 
@@ -125,10 +124,8 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
                     continue;
                 }
 
-//                $duration = new Duration($element->duration->text, $element->duration->value);
-//                $distance = new Distance($element->distance->text, $element->distance->value);
-                $duration = new Duration(FormatHelper::formatTime($element->duration->value), $element->duration->value);
-                $distance = new Distance(FormatHelper::formatDistance($element->distance->value), $element->distance->value);
+                $distance = new Distance((int) $element->distance->value);
+                $duration = new Duration((int) $element->duration->value);
                 $elements[] = new Element($element->status, $duration, $distance);
             }
             $this->addRow(new Row($elements));

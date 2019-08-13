@@ -1,6 +1,9 @@
 <?php
 
-namespace DH\NavigationBundle\Model;
+namespace DH\NavigationBundle\Model\DistanceMatrix;
+
+use DH\NavigationBundle\Model\Distance;
+use DH\NavigationBundle\Model\Duration;
 
 class Element
 {

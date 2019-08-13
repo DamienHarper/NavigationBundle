@@ -1,6 +1,6 @@
 <?php
 
-namespace DH\NavigationBundle\Model;
+namespace DH\NavigationBundle\Model\DistanceMatrix;
 
 class Row
 {

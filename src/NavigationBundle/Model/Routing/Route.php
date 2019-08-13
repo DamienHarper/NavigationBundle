@@ -5,7 +5,7 @@ namespace DH\NavigationBundle\Model\Routing;
 class Route
 {
     /**
-     * @var Leg[]|array
+     * @var array|Leg[]
      */
     private $legs = [];
 
@@ -21,7 +21,7 @@ class Route
     }
 
     /**
-     * @return Leg[]|array
+     * @return array|Leg[]
      */
     public function getLegs(): array
     {

@@ -105,11 +105,12 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @return RoutingResponseInterface
      * @throws OriginException
      * @throws ResponseException
      * @throws WaypointException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return RoutingResponseInterface
      */
     public function execute(): RoutingResponseInterface
     {
@@ -196,7 +197,7 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
      */
     private function validateRequest(): void
     {
-        if (empty($this->getWaypoints()) || count($this->getWaypoints()) < 2) {
+        if (empty($this->getWaypoints()) || \count($this->getWaypoints()) < 2) {
             throw new WaypointException('At least two waypoints must be set.');
         }
 
