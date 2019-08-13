@@ -2,7 +2,7 @@
 
 namespace DH\NavigationBundle\Model\Routing;
 
-class RouteSummary
+class Summary
 {
     /**
      * @var int

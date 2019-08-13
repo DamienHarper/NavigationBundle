@@ -3,7 +3,10 @@
 namespace DH\NavigationBundle\Provider\Here\Routing;
 
 use DH\NavigationBundle\Contract\Routing\RoutingResponseInterface;
-use DH\NavigationBundle\Model\Routing\RouteSummary;
+use DH\NavigationBundle\Model\Routing\Leg;
+use DH\NavigationBundle\Model\Routing\Route;
+use DH\NavigationBundle\Model\Routing\Step;
+use DH\NavigationBundle\Model\Routing\Summary;
 use Psr\Http\Message\ResponseInterface;
 
 class RoutingResponse implements RoutingResponseInterface
@@ -19,9 +22,9 @@ class RoutingResponse implements RoutingResponseInterface
     private $responseObject;
 
     /**
-     * @var RouteSummary
+     * @var array
      */
-    private $summary;
+    private $routes;
 
     public function __construct(ResponseInterface $response)
     {
@@ -50,26 +53,42 @@ class RoutingResponse implements RoutingResponseInterface
 
     private function initialize(): void
     {
-//        $startIndex = 0;
-//        $elements = [];
-//        foreach ($this->responseObject->response->matrixEntry as $element) {
-//            if ($startIndex !== $element->startIndex) {
-//                $this->addRow(new Row($elements));
-//                $startIndex = $element->startIndex;
-//                $elements = [];
-//            }
-//
-//            $status = 'OK';
-//            $distance = new Distance(FormatHelper::formatDistance($element->summary->distance), $element->summary->distance);
-//            $duration = new Duration(FormatHelper::formatTime($element->summary->travelTime), $element->summary->travelTime);
-//
-//            $elements[] = new Element($status, $duration, $distance);
-//        }
-//        $this->addRow(new Row($elements));
+        // routes, waypoints, legs, steps
+        foreach ($this->responseObject->response->route as $routeElement) {
+            $legs = [];
+
+            foreach ($routeElement->leg as $legElement) {
+                $steps = [];
+                foreach ($legElement->maneuver as $stepElement) {
+                    $steps[] = new Step([
+                        'position' => (array) $stepElement->position,
+                        'instruction' => $stepElement->instruction,
+                        'duration' => $stepElement->travelTime,
+                        'distance' => $stepElement->length,
+                    ]);
+                }
+
+                $legs[] = new Leg([
+                    'start' => (array) $legElement->start->originalPosition,
+                    'end' => (array) $legElement->end->originalPosition,
+                    'duration' => $legElement->travelTime,
+                    'distance' => $legElement->length,
+                    'steps' => $steps,
+                ]);
+            }
+
+            $this->routes[] = new Route([
+                'legs' => $legs,
+                'summary' => new Summary((array) $routeElement->summary),
+            ]);
+        }
     }
 
-    public function getSummary(): int
+    /**
+     * @return array
+     */
+    public function getRoutes(): array
     {
-        return $this->responseObject->response->route[0]->summary;
+        return $this->routes;
     }
 }

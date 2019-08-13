@@ -15,6 +15,9 @@ use DH\NavigationBundle\Exception\WaypointException;
  * @covers \DH\NavigationBundle\DHNavigationBundle
  * @covers \DH\NavigationBundle\Exception\ProviderNotRegistered
  * @covers \DH\NavigationBundle\Helper\FormatHelper
+ * @covers \DH\NavigationBundle\Model\Routing\Leg
+ * @covers \DH\NavigationBundle\Model\Routing\Route
+ * @covers \DH\NavigationBundle\Model\Routing\Summary
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
  * @covers \DH\NavigationBundle\Provider\AbstractProvider
@@ -85,5 +88,16 @@ class RoutingQueryTest extends BaseTest
         ;
 
         $this->assertInstanceOf(RoutingResponseInterface::class, $response);
+
+        $routes = $response->getRoutes();
+        $this->assertGreaterThanOrEqual(1, $routes);
+
+        $this->assertNotNull($routes[0]->getSummary());
+
+        $legs = $routes[0]->getLegs();
+        $this->assertGreaterThanOrEqual(1, $legs);
+
+        $steps = $legs[0]->getSteps();
+        $this->assertGreaterThanOrEqual(1, $steps);
     }
 }

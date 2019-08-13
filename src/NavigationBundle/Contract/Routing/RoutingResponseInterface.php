@@ -20,4 +20,9 @@ interface RoutingResponseInterface
      * @return \stdClass
      */
     public function getResponseObject(): \stdClass;
+
+    /**
+     * @return array
+     */
+    public function getRoutes(): array;
 }
