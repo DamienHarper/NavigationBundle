@@ -51,8 +51,11 @@ class Configuration implements ConfigurationInterface
      */
     private function getProvidersNode(): ArrayNodeDefinition
     {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('providers');
+        $treeBuilder = new TreeBuilder('providers');
+
+        // Keep compatibility with symfony/config < 4.2
+        /** @var ParentNodeDefinitionInterface $rootNode */
+        $node = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('providers');
 
         $node
             ->requiresAtLeastOneElement()
