@@ -34,11 +34,11 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     private $destinationAddresses;
 
     /**
-     * @var array|Row[]
+     * @var Row[]|array
      */
     private $rows;
 
-    public function __construct(ResponseInterface $response, array $origins, array $destinations)
+    public function __construct(ResponseInterface $response)
     {
         $responseObject = json_decode($response->getBody()->getContents());
         $this->responseObject = $responseObject;

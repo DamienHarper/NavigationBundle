@@ -1,8 +1,8 @@
 <?php
 
-namespace DH\NavigationBundle\Contract\DistanceMatrix;
+namespace DH\NavigationBundle\Contract\Routing;
 
-interface DistanceMatrixResponseInterface
+interface RoutingResponseInterface
 {
     public const RESPONSE_STATUS_MAX_ELEMENTS_EXCEEDED = 'MAX_ELEMENTS_EXCEEDED';
     public const RESPONSE_STATUS_OK = 'OK';
@@ -24,15 +24,5 @@ interface DistanceMatrixResponseInterface
     /**
      * @return array
      */
-    public function getOriginAddresses(): array;
-
-    /**
-     * @return array
-     */
-    public function getDestinationAddresses(): array;
-
-    /**
-     * @return array
-     */
-    public function getRows(): array;
+    public function getRoutes(): array;
 }

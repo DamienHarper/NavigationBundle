@@ -115,14 +115,6 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
 
     private function initialize(): void
     {
-//        foreach ($this->responseObject->origin_addresses as $originAddress) {
-//            $this->addOriginAddress(new Address($originAddress));
-//        }
-//
-//        foreach ($this->responseObject->destination_addresses as $destinationAddress) {
-//            $this->addDestinationAddress(new Address($destinationAddress));
-//        }
-
         $startIndex = 0;
         $elements = [];
         foreach ($this->responseObject->response->matrixEntry as $element) {

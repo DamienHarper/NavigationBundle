@@ -3,8 +3,10 @@
 namespace DH\NavigationBundle\Provider\Here;
 
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
+use DH\NavigationBundle\Contract\Routing\RoutingQueryInterface;
 use DH\NavigationBundle\Provider\AbstractProvider;
 use DH\NavigationBundle\Provider\Here\DistanceMatrix\DistanceMatrixQuery;
+use DH\NavigationBundle\Provider\Here\Routing\RoutingQuery;
 use GuzzleHttp\ClientInterface;
 
 class Here extends AbstractProvider
@@ -90,6 +92,14 @@ class Here extends AbstractProvider
     public function createDistanceMatrixQuery(): DistanceMatrixQueryInterface
     {
         return new DistanceMatrixQuery($this);
+    }
+
+    /**
+     * @return RoutingQueryInterface
+     */
+    public function createRoutingQuery(): RoutingQueryInterface
+    {
+        return new RoutingQuery($this);
     }
 
     /**
