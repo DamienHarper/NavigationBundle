@@ -12,7 +12,7 @@ class FormatHelper
      */
     public static function formatTime(int $duration, bool $extended = false): string
     {
-        static $timeFormats = [
+        static $formats = [
             [0, '< 1 sec'],
             [1, '1 sec'],
             [2, 'secs', 1],
@@ -24,10 +24,10 @@ class FormatHelper
             [172800, 'days', 86400],
         ];
 
-        foreach ($timeFormats as $index => $format) {
+        foreach ($formats as $index => $format) {
             if ($duration >= $format[0]) {
-                if ((isset($timeFormats[$index + 1]) && $duration < $timeFormats[$index + 1][0])
-                    || $index === \count($timeFormats) - 1
+                if ((isset($formats[$index + 1]) && $duration < $formats[$index + 1][0])
+                    || $index === \count($formats) - 1
                 ) {
                     if (2 === \count($format)) {
                         return $format[1];
@@ -46,11 +46,25 @@ class FormatHelper
 
     /**
      * @param int $distance
+     * @param bool $extended
      *
      * @return string
      */
-    public static function formatDistance(int $distance): string
+    public static function formatDistance(int $distance, bool $extended = false): string
     {
+        if ($distance < 1000) {
+            return $distance.' m';
+        }
+
+        $tmp = (int) floor($distance / 1000);
+        if (!$extended || $distance - ($tmp * 1000) === 0) {
+            return round($distance / 1000, 1).' km';
+        }
+
+        return $tmp.' km '.self::formatDistance($distance - ($tmp * 1000), $extended);
+
+
+
         return $distance >= 1000 ? round($distance / 1000, 1).' km' : $distance.' m';
     }
 }

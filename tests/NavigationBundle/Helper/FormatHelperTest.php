@@ -31,6 +31,8 @@ class FormatHelperTest extends TestCase
     public function testFormatDistance(): void
     {
         $this->assertSame('700 m', FormatHelper::formatDistance(700));
+        $this->assertSame('1.5 km', FormatHelper::formatDistance(1500));
+        $this->assertSame('1 km 500 m', FormatHelper::formatDistance(1500, true));
         $this->assertSame('7 km', FormatHelper::formatDistance(7000));
     }
 }
