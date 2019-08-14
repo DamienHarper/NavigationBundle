@@ -116,8 +116,8 @@ HELP
                     $data[] = [
                         $stepIndex + 1,
                         implode(', ', $step->getPosition()),
-                        $step->getDistance()->getAsText(),
-                        $step->getDuration()->getAsText(),
+                        $step->getDistance()->getFormattedValue(),
+                        $step->getDuration()->getFormattedValue(),
                         $step->getInstruction()
                     ];
                 }
