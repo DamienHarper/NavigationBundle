@@ -5,7 +5,7 @@ namespace DH\NavigationBundle\Helper;
 class FormatHelper
 {
     /**
-     * @param int $duration
+     * @param int  $duration
      * @param bool $extended
      *
      * @return string
@@ -34,7 +34,7 @@ class FormatHelper
                     }
 
                     $tmp = (int) floor($duration / $format[2]);
-                    if (!$extended || $duration - ($tmp * $format[2]) === 0) {
+                    if (!$extended || 0 === $duration - ($tmp * $format[2])) {
                         return $tmp.' '.$format[1];
                     }
 
@@ -45,7 +45,7 @@ class FormatHelper
     }
 
     /**
-     * @param int $distance
+     * @param int  $distance
      * @param bool $extended
      *
      * @return string
@@ -57,14 +57,10 @@ class FormatHelper
         }
 
         $tmp = (int) floor($distance / 1000);
-        if (!$extended || $distance - ($tmp * 1000) === 0) {
+        if (!$extended || 0 === $distance - ($tmp * 1000)) {
             return round($distance / 1000, 1).' km';
         }
 
         return $tmp.' km '.self::formatDistance($distance - ($tmp * 1000), $extended);
-
-
-
-        return $distance >= 1000 ? round($distance / 1000, 1).' km' : $distance.' m';
     }
 }
