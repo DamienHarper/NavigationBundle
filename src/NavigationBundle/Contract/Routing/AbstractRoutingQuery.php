@@ -181,7 +181,7 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @param DistanceMatrixResponseInterface $response
+     * @param RoutingResponseInterface $response
      *
      * @throws ResponseException
      */
