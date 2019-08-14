@@ -19,7 +19,7 @@ class Distance
     /**
      * @return string
      */
-    public function getAsText(): string
+    public function getFormattedValue(): string
     {
         return FormatHelper::formatDistance($this->value);
     }
@@ -37,6 +37,6 @@ class Distance
      */
     public function __toString(): string
     {
-        return $this->getAsText();
+        return $this->getFormattedValue();
     }
 }

@@ -19,7 +19,7 @@ class Duration
     /**
      * @return string
      */
-    public function getAsText(): string
+    public function getFormattedValue(): string
     {
         return FormatHelper::formatTime($this->value);
     }
@@ -37,6 +37,6 @@ class Duration
      */
     public function __toString(): string
     {
-        return $this->getAsText();
+        return $this->getFormattedValue();
     }
 }

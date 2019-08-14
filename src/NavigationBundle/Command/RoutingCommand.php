@@ -91,7 +91,7 @@ HELP
              * @var Summary $summary
              */
             $summary = $route->getSummary();
-            $data[] = [$index + 1, $summary->getDistance()->getAsText(), $summary->getTravelTime()->getAsText()];
+            $data[] = [$index + 1, $summary->getDistance()->getFormattedValue(), $summary->getTravelTime()->getFormattedValue()];
         }
 
         $table = new Table($output);
