@@ -49,11 +49,11 @@ class DistanceMatrixCommand extends Command implements ContainerAwareInterface
             ->addOption('to', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Destination')
             ->setHelp(
                 <<<'HELP'
-The <info>distance-matrix:compute</info> command will compute a distance matrix from the given addresses.
+The <info>navigation:distance-matrix</info> command will compute a distance matrix from the given addresses.
 
-You can force a provider with the "provider" option.
+You can choose a provider with the "provider" option.
 
-<info>php bin/console distance-matrix:compute --from="45.834278,1.260816" --to="44.830109,-0.603649" --provider=here</info>
+<info>php bin/console navigation:distance-matrix --from="45.834278,1.260816" --to="44.830109,-0.603649" --provider=here</info>
 HELP
             );
     }
@@ -75,21 +75,18 @@ HELP
             $this->manager->using($input->getOption('provider'));
         }
 
-        $distanceMatrix = $this->manager->createDistanceMatrixQuery();
-
-//        $now = new \DateTime('now', new \DateTimeZone('GMT+2'));
-//        $distanceMatrix->setDepartureTime($now->add(new \DateInterval('P1D')));
+        $query = $this->manager->createDistanceMatrixQuery();
 
         foreach ($input->getOption('from') as $from) {
-            $distanceMatrix->addOrigin($from);
+            $query->addOrigin($from);
         }
         foreach ($input->getOption('to') as $to) {
-            $distanceMatrix->addDestination($to);
+            $query->addDestination($to);
         }
-        $response = $distanceMatrix->execute();
+        $response = $query->execute();
 
-        $origins = $distanceMatrix->getOrigins();
-        $destinations = $distanceMatrix->getDestinations();
+        $origins = $query->getOrigins();
+        $destinations = $query->getDestinations();
 
         $headers = array_merge([''], $destinations);
         $data = [];
