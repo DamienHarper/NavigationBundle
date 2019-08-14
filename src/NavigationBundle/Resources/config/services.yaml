@@ -5,9 +5,11 @@ services:
         tags:
             - { name: 'console.command', command: 'navigation:distance-matrix' }
 
-    DH\NavigationBundle\Command\DistanceMatrixCommand:
-        alias: dh_navigation.command.distance_matrix
-        public: true
+    dh_navigation.command.routing:
+        class: DH\NavigationBundle\Command\RoutingCommand
+        arguments: ['@dh_navigation.manager']
+        tags:
+            - { name: 'console.command', command: 'navigation:routing' }
 
     DH\NavigationBundle\Provider\:
         resource: '../../Provider'
