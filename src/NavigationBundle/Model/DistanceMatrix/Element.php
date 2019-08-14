@@ -17,10 +17,19 @@ class Element
         self::STATUS_ZERO_RESULTS,
     ];
 
+    /**
+     * @var string
+     */
     private $status;
 
+    /**
+     * @var Duration
+     */
     private $duration;
 
+    /**
+     * @var Distance
+     */
     private $distance;
 
     /**

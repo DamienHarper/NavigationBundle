@@ -15,8 +15,11 @@ use DH\NavigationBundle\Exception\WaypointException;
  * @covers \DH\NavigationBundle\DHNavigationBundle
  * @covers \DH\NavigationBundle\Exception\ProviderNotRegistered
  * @covers \DH\NavigationBundle\Helper\FormatHelper
+ * @covers \DH\NavigationBundle\Model\Distance
+ * @covers \DH\NavigationBundle\Model\Duration
  * @covers \DH\NavigationBundle\Model\Routing\Leg
  * @covers \DH\NavigationBundle\Model\Routing\Route
+ * @covers \DH\NavigationBundle\Model\Routing\Step
  * @covers \DH\NavigationBundle\Model\Routing\Summary
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
