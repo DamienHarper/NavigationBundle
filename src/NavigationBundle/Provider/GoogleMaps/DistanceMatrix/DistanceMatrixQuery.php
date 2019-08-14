@@ -11,11 +11,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * @var string
      */
-    private $language;
-
-    /**
-     * @var string
-     */
     private $units;
 
     /**
@@ -172,26 +167,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     }
 
     /**
-     * @param string $language
-     *
-     * @return DistanceMatrixQuery
-     */
-    public function setLanguage($language = 'en-US'): self
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    /**
      * @param string $units
      *
      * @return DistanceMatrixQuery
@@ -261,7 +236,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         $data = array_merge(
             $this->getProvider()->getCredentials(),
             [
-                'language' => $this->language,
+                'language' => $this->getLanguage(),
                 'origins' => \count($this->origins) > 1 ? implode('|', $this->origins) : $this->origins[0],
                 'destinations' => \count($this->destinations) > 1 ? implode('|', $this->destinations) : $this->destinations[0],
                 'mode' => $this->mode,

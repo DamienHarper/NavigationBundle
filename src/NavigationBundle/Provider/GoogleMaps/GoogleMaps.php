@@ -15,12 +15,18 @@ class GoogleMaps extends AbstractProvider
     private $api_key;
 
     /**
+     * @var ?string
+     */
+    private $region;
+
+    /**
      * Here constructor.
      *
      * @param ClientInterface $client
      * @param string          $apiKey an Api key
+     * @param ?string         $region region
      */
-    public function __construct(ClientInterface $client, string $apiKey)
+    public function __construct(ClientInterface $client, string $apiKey, ?string $region = null)
     {
         parent::__construct($client);
 
@@ -41,6 +47,14 @@ class GoogleMaps extends AbstractProvider
     public function getApiKey(): string
     {
         return $this->api_key;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getRegion(): ?string
+    {
+        return $this->region;
     }
 
     /**

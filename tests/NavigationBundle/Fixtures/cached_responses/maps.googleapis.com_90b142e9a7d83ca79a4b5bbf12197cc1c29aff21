@@ -1,4 +1,4 @@
-s:1671:"{
+s:1672:"{
    "destination_addresses" : [
       "1 Place Amélie Raba Léon, 33000 Bordeaux, France",
       "123 Avenue Albert Thomas, 87100 Limoges, France"
@@ -38,12 +38,12 @@ s:1671:"{
          "elements" : [
             {
                "distance" : {
-                  "text" : "255 km",
-                  "value" : 255205
+                  "text" : "251 km",
+                  "value" : 250581
                },
                "duration" : {
-                  "text" : "3 hours 1 min",
-                  "value" : 10868
+                  "text" : "3 hours 5 mins",
+                  "value" : 11075
                },
                "status" : "OK"
             },

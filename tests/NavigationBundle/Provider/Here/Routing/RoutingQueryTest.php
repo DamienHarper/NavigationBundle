@@ -38,6 +38,31 @@ class RoutingQueryTest extends BaseTest
         }
     }
 
+    public function testDefaultLanguage(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createRoutingQuery()
+        ;
+
+        $this->assertSame('en-US', $query->getLanguage());
+    }
+
+    public function testCustomLanguage(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createRoutingQuery()
+            ->setLanguage('fr-FR')
+        ;
+
+        $this->assertSame('fr-FR', $query->getLanguage());
+    }
+
     public function testExecuteWithoutWaypoint(): void
     {
         $this->checkCredentials();

@@ -29,6 +29,18 @@ interface RoutingQueryInterface
     public function setArrivalTime(\DateTime $arrival_time): self;
 
     /**
+     * @param string $language
+     *
+     * @return RoutingQueryInterface
+     */
+    public function setLanguage(string $language): self;
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string;
+
+    /**
      * @param string $waypoint
      * @param mixed  $origin
      *

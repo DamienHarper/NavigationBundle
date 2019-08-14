@@ -31,6 +31,11 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     private $departure_time;
 
     /**
+     * @var string
+     */
+    private $language;
+
+    /**
      * DistanceMatrixQuery constructor.
      *
      * @param ProviderInterface $provider
@@ -103,6 +108,26 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     public function getDestinations(): ?array
     {
         return $this->destinations;
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return DistanceMatrixQueryInterface
+     */
+    public function setLanguage(string $language): DistanceMatrixQueryInterface
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language ?? 'en-US';
     }
 
     /**

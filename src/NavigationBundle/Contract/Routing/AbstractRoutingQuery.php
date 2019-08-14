@@ -30,6 +30,11 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     private $arrival_time;
 
     /**
+     * @var string
+     */
+    private $language;
+
+    /**
      * RoutingQuery constructor.
      *
      * @param ProviderInterface $provider
@@ -82,6 +87,26 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
         $this->arrival_time = $arrivalTime;
 
         return $this;
+    }
+
+    /**
+     * @param string $language
+     *
+     * @return RoutingQueryInterface
+     */
+    public function setLanguage(string $language): RoutingQueryInterface
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language ?? 'en-US';
     }
 
     /**

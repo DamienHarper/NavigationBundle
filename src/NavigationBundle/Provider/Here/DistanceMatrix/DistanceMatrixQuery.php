@@ -149,6 +149,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         $data = array_merge(
             $this->getProvider()->getCredentials(),
             [
+                'language' => $this->getLanguage(),
                 'avoid' => $this->avoid,
                 'mode' => $this->getRoutingMode().';'.$this->getTransportMode().';traffic:'.$this->getTrafficMode(),
                 'summaryAttributes' => 'traveltime,distance,costfactor',

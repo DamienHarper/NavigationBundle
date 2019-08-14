@@ -41,6 +41,31 @@ class DistanceMatrixQueryTest extends BaseTest
         }
     }
 
+    public function testDefaultLanguage(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createDistanceMatrixQuery()
+        ;
+
+        $this->assertSame('en-US', $query->getLanguage());
+    }
+
+    public function testCustomLanguage(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createDistanceMatrixQuery()
+            ->setLanguage('fr-FR')
+        ;
+
+        $this->assertSame('fr-FR', $query->getLanguage());
+    }
+
     public function testExecuteWithoutOrigin(): void
     {
         $this->checkCredentials();

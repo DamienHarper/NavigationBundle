@@ -41,6 +41,18 @@ interface DistanceMatrixQueryInterface
     public function getDestinations(): ?array;
 
     /**
+     * @param string $language
+     *
+     * @return DistanceMatrixQueryInterface
+     */
+    public function setLanguage(string $language): self;
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string;
+
+    /**
      * @return DistanceMatrixResponseInterface
      */
     public function execute(): DistanceMatrixResponseInterface;
