@@ -31,6 +31,7 @@ class GoogleMaps extends AbstractProvider
         parent::__construct($client);
 
         $this->api_key = $apiKey;
+        $this->region = $region;
     }
 
     /**

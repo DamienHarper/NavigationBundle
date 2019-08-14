@@ -236,6 +236,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         $data = array_merge(
             $this->getProvider()->getCredentials(),
             [
+                'region' => $this->getProvider()->getRegion(),
                 'language' => $this->getLanguage(),
                 'origins' => \count($this->origins) > 1 ? implode('|', $this->origins) : $this->origins[0],
                 'destinations' => \count($this->destinations) > 1 ? implode('|', $this->destinations) : $this->destinations[0],
