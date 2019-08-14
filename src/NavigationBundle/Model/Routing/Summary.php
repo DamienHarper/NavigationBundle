@@ -2,25 +2,28 @@
 
 namespace DH\NavigationBundle\Model\Routing;
 
+use DH\NavigationBundle\Model\Distance;
+use DH\NavigationBundle\Model\Duration;
+
 class Summary
 {
     /**
-     * @var int
+     * @var Distance
      */
     private $distance;
 
     /**
-     * @var int
+     * @var Duration
      */
     private $trafficTime;
 
     /**
-     * @var int
+     * @var Duration
      */
     private $baseTime;
 
     /**
-     * @var int
+     * @var Duration
      */
     private $travelTime;
 
@@ -36,10 +39,10 @@ class Summary
 
     public function __construct(array $data)
     {
-        $this->distance = $data['distance'] ?? null;
-        $this->trafficTime = $data['trafficTime'] ?? null;
-        $this->baseTime = $data['baseTime'] ?? null;
-        $this->travelTime = $data['travelTime'] ?? null;
+        $this->distance = new Distance($data['distance'] ?? 0);
+        $this->trafficTime = new Duration($data['trafficTime'] ?? 0);
+        $this->baseTime = new Duration($data['baseTime'] ?? 0);
+        $this->travelTime = new Duration($data['travelTime'] ?? 0);
         $this->text = $data['text'] ?? null;
         $this->flags = $data['flags'] ?? [];
     }
@@ -47,9 +50,9 @@ class Summary
     /**
      * Get the value of distance.
      *
-     * @return int
+     * @return Distance
      */
-    public function getDistance(): int
+    public function getDistance(): Distance
     {
         return $this->distance;
     }
@@ -57,9 +60,9 @@ class Summary
     /**
      * Get the value of trafficTime.
      *
-     * @return int
+     * @return Duration
      */
-    public function getTrafficTime(): int
+    public function getTrafficTime(): Duration
     {
         return $this->trafficTime;
     }
@@ -67,9 +70,9 @@ class Summary
     /**
      * Get the value of baseTime.
      *
-     * @return int
+     * @return Duration
      */
-    public function getBaseTime(): int
+    public function getBaseTime(): Duration
     {
         return $this->baseTime;
     }
@@ -77,9 +80,9 @@ class Summary
     /**
      * Get the value of travelTime.
      *
-     * @return int
+     * @return Duration
      */
-    public function getTravelTime(): int
+    public function getTravelTime(): Duration
     {
         return $this->travelTime;
     }

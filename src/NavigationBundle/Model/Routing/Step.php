@@ -31,7 +31,7 @@ class Step
     {
         $this->position = $data['position'] ?? [];
         $this->instruction = $data['instruction'] ?? '';
-        $this->duration = new Duration((int) ($data['instruction'] ?? 0));
+        $this->duration = new Duration((int) ($data['duration'] ?? 0));
         $this->distance = new Distance((int) ($data['distance'] ?? 0));
     }
 
