@@ -6,10 +6,11 @@ class FormatHelper
 {
     /**
      * @param int $duration
+     * @param bool $extended
      *
      * @return string
      */
-    public static function formatTime(int $duration): string
+    public static function formatTime(int $duration, bool $extended = false): string
     {
         static $timeFormats = [
             [0, '< 1 sec'],
@@ -32,7 +33,12 @@ class FormatHelper
                         return $format[1];
                     }
 
-                    return floor($duration / $format[2]).' '.$format[1];
+                    $tmp = (int) floor($duration / $format[2]);
+                    if (!$extended || $duration - ($tmp * $format[2]) === 0) {
+                        return $tmp.' '.$format[1];
+                    }
+
+                    return $tmp.' '.$format[1].' '.self::formatTime($duration - ($tmp * $format[2]), $extended);
                 }
             }
         }
