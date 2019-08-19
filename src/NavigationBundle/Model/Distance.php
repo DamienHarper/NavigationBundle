@@ -17,11 +17,13 @@ class Distance
     }
 
     /**
+     * @param int
+     *
      * @return string
      */
-    public function getFormattedValue(): string
+    public function getFormattedValue(int $precision = 1): string
     {
-        return FormatHelper::formatDistance($this->value);
+        return FormatHelper::formatDistance($this->value, $precision);
     }
 
     /**
