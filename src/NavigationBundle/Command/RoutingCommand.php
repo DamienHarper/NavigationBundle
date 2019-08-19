@@ -109,7 +109,7 @@ HELP
         $data = [];
         foreach ($routes as $index => $route) {
             /**
-             * @var Summary $summary
+             * @var Summary
              */
             $summary = $route->getSummary();
             $data[] = [
@@ -143,7 +143,7 @@ HELP
                         implode(', ', $step->getPosition()),
                         $step->getDistance()->getFormattedValue(2),
                         $step->getDuration()->getFormattedValue(2),
-                        $step->getInstruction()
+                        $step->getInstruction(),
                     ];
                 }
 

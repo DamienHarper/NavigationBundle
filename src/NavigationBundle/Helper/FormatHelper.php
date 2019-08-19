@@ -47,8 +47,8 @@ class FormatHelper
     }
 
     /**
-     * @param int  $distance
-     * @param int  $precision
+     * @param int $distance
+     * @param int $precision
      *
      * @return string
      */
