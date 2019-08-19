@@ -48,6 +48,10 @@ class RoutingCommand extends Command implements ContainerAwareInterface
             ->setDescription('Computes a route')
             ->addOption('provider', null, InputOption::VALUE_REQUIRED)
             ->addOption('waypoint', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Point de passage')
+            ->addOption('departure', null, InputOption::VALUE_REQUIRED, 'Departure date and time (YYYY-MM-DDD HH:II:SS)')
+            ->addOption('arrival', null, InputOption::VALUE_REQUIRED, 'Arrival date and time (YYYY-MM-DDD HH:II:SS)')
+            ->addOption('traffic', null, InputOption::VALUE_REQUIRED, 'Traffic mode (enabled/disabled/default depending on provider)')
+            ->addOption('language', null, InputOption::VALUE_REQUIRED, 'Language (fr-FR, en-US, etc.)')
             ->setHelp(
                 <<<'HELP'
 The <info>navigation:routing</info> command will compute a route from the given addresses.
@@ -77,6 +81,23 @@ HELP
         foreach ($input->getOption('waypoint') as $waypoint) {
             $query->addWaypoint($waypoint);
         }
+
+        if ($input->getOption('departure')) {
+            $query->setDepartureTime(new \DateTime($input->getOption('departure')));
+        }
+
+        if ($input->getOption('arrival')) {
+            $query->setArrivalTime(new \DateTime($input->getOption('arrival')));
+        }
+
+        if ($input->getOption('traffic')) {
+            $query->setTrafficMode($input->getOption('traffic'));
+        }
+
+        if ($input->getOption('language')) {
+            $query->setLanguage($input->getOption('language'));
+        }
+
         $response = $query->execute();
 
         $io = new SymfonyStyle($input, $output);
@@ -91,7 +112,11 @@ HELP
              * @var Summary $summary
              */
             $summary = $route->getSummary();
-            $data[] = [$index + 1, $summary->getDistance()->getFormattedValue(), $summary->getTravelTime()->getFormattedValue()];
+            $data[] = [
+                $index + 1,
+                $summary->getDistance()->getFormattedValue(2),
+                $summary->getTravelTime()->getFormattedValue(2),
+            ];
         }
 
         $table = new Table($output);
@@ -116,8 +141,8 @@ HELP
                     $data[] = [
                         $stepIndex + 1,
                         implode(', ', $step->getPosition()),
-                        $step->getDistance()->getFormattedValue(),
-                        $step->getDuration()->getFormattedValue(),
+                        $step->getDistance()->getFormattedValue(2),
+                        $step->getDuration()->getFormattedValue(2),
                         $step->getInstruction()
                     ];
                 }
