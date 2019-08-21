@@ -2,6 +2,7 @@
 
 namespace DH\NavigationBundle\Command;
 
+use DH\NavigationBundle\Model\DistanceMatrix\Element;
 use DH\NavigationBundle\NavigationManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -93,7 +94,11 @@ HELP
         foreach ($response->getRows() as $index => $row) {
             $r = [$origins[$index]];
             foreach ($row->getElements() as $element) {
-                $r[] = $element->getDistance().', '.$element->getDuration();
+                if (Element::STATUS_OK === $element->getStatus()) {
+                    $r[] = $element->getDistance().', '.$element->getDuration();
+                } else {
+                    $r[] = 'unavailable';
+                }
             }
             $data[] = $r;
         }

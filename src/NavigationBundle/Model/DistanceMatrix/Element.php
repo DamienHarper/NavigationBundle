@@ -8,11 +8,13 @@ use DH\NavigationBundle\Model\Duration;
 class Element
 {
     public const STATUS_OK = 'OK';
+    public const STATUS_FAILED = 'failed';
     public const STATUS_NOT_FOUND = 'NOT_FOUND';
     public const STATUS_ZERO_RESULTS = 'ZERO_RESULTS';
 
     public const STATUS = [
         self::STATUS_OK,
+        self::STATUS_FAILED,
         self::STATUS_NOT_FOUND,
         self::STATUS_ZERO_RESULTS,
     ];
@@ -23,12 +25,12 @@ class Element
     private $status;
 
     /**
-     * @var Duration
+     * @var ?Duration
      */
     private $duration;
 
     /**
-     * @var Distance
+     * @var ?Distance
      */
     private $distance;
 
@@ -36,12 +38,12 @@ class Element
      * Element constructor.
      *
      * @param $status
-     * @param Duration $duration
-     * @param Distance $distance
+     * @param ?Duration $duration
+     * @param ?Distance $distance
      *
      * @throws \Exception
      */
-    public function __construct($status, Duration $duration, Distance $distance)
+    public function __construct($status, ?Duration $duration, ?Distance $distance)
     {
         if (!\in_array($status, self::STATUS, true)) {
             throw new \Exception(sprintf('Unknown status code: %s', $status));

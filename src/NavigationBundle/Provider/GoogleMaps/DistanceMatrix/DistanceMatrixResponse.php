@@ -117,16 +117,17 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
         foreach ($this->responseObject->rows as $row) {
             $elements = [];
             foreach ($row->elements as $element) {
-                if (0 === strcmp($element->status, Element::STATUS_ZERO_RESULTS)) { //avoid a crash when no route was found
-                    //todo here happens something strange
-                    $elements[] = new Element($element->status, new Duration(), new Distance());
-
-                    continue;
+                if (property_exists($element, 'status') && Element::STATUS_OK !== $element->status) {
+                    $status = $element->status;
+                    $distance = null;
+                    $duration = null;
+                } else {
+                    $status = 'OK';
+                    $distance = new Distance((int) $element->distance->value);
+                    $duration = new Duration((int) $element->duration->value);
                 }
 
-                $distance = new Distance((int) $element->distance->value);
-                $duration = new Duration((int) $element->duration->value);
-                $elements[] = new Element($element->status, $duration, $distance);
+                $elements[] = new Element($status, $duration, $distance);
             }
             $this->addRow(new Row($elements));
         }
