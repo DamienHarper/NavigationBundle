@@ -6,6 +6,7 @@ use DH\DoctrineAuditBundle\Tests\BaseTest;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
 use DH\NavigationBundle\Exception\DestinationException;
 use DH\NavigationBundle\Exception\OriginException;
+use DH\NavigationBundle\Model\DistanceMatrix\Element;
 
 /**
  * @covers \DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery
@@ -119,6 +120,58 @@ class DistanceMatrixQueryTest extends BaseTest
 
         $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
 
-        $this->assertCount(2, $response->getRows());
+        $rows = $response->getRows();
+        $this->assertCount(2, $rows);
+
+        foreach ($rows as $row) {
+            $elements = $row->getElements();
+            $this->assertCount(2, $elements);
+            foreach ($elements as $element) {
+                $this->assertSame(Element::STATUS_OK, $element->getStatus());
+            }
+        }
+    }
+
+    /**
+     * @depends testExecuteWithoutDestination
+     */
+    public function testExecuteWithUnreachableWaypoints(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createDistanceMatrixQuery()
+        ;
+        $response = $query
+            ->addOrigin('43.483112,-1.482307')
+            ->addOrigin('45.834278,1.260816')
+            ->addDestination('-3.853220,-41.595480')
+            ->addDestination('44.830109,-0.603649')
+            ->execute()
+        ;
+
+        $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
+
+        $rows = $response->getRows();
+        $this->assertCount(2, $rows);
+
+        $row = $rows[0];
+        $elements = $row->getElements();
+        $this->assertCount(2, $elements);
+
+        $element = $elements[0];
+        $this->assertSame(Element::STATUS_FAILED, $element->getStatus());
+        $element = $elements[1];
+        $this->assertSame(Element::STATUS_OK, $element->getStatus());
+
+        $row = $rows[1];
+        $elements = $row->getElements();
+        $this->assertCount(2, $elements);
+
+        $element = $elements[0];
+        $this->assertSame(Element::STATUS_FAILED, $element->getStatus());
+        $element = $elements[1];
+        $this->assertSame(Element::STATUS_OK, $element->getStatus());
     }
 }
