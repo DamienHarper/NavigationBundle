@@ -4,11 +4,17 @@ namespace DH\NavigationBundle\Tests;
 
 use DH\DoctrineAuditBundle\Tests\BaseTest;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
+use DH\NavigationBundle\Contract\Routing\RoutingQueryInterface;
 use DH\NavigationBundle\Exception\ProviderNotRegistered;
+use DH\NavigationBundle\Exception\UnsupportedFeatureException;
+use DH\NavigationBundle\NavigationManager;
 use DH\NavigationBundle\Provider\ProviderInterface;
+use DH\NavigationBundle\Tests\Provider\Dummy\Dummy;
+use GuzzleHttp\Client;
 
 /**
  * @covers \DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery
+ * @covers \DH\NavigationBundle\Contract\Routing\AbstractRoutingQuery
  * @covers \DH\NavigationBundle\DependencyInjection\Compiler\AddProvidersPass
  * @covers \DH\NavigationBundle\DependencyInjection\Compiler\FactoryValidatorPass
  * @covers \DH\NavigationBundle\DependencyInjection\Configuration
@@ -18,6 +24,8 @@ use DH\NavigationBundle\Provider\ProviderInterface;
  * @covers \DH\NavigationBundle\NavigationManager
  * @covers \DH\NavigationBundle\Provider\AbstractFactory
  * @covers \DH\NavigationBundle\Provider\AbstractProvider
+ * @covers \DH\NavigationBundle\Tests\Provider\Dummy\Dummy
+ * @covers \DH\NavigationBundle\Tests\Provider\Dummy\DummyFactory
  * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMaps
  * @covers \DH\NavigationBundle\Provider\GoogleMaps\GoogleMapsFactory
  * @covers \DH\NavigationBundle\Provider\Here\Here
@@ -108,5 +116,48 @@ class NavigationManagerTest extends BaseTest
         ;
 
         $this->assertInstanceOf(DistanceMatrixQueryInterface::class, $query);
+    }
+
+    /**
+     * @depends testGetKnownProvider
+     */
+    public function testCreateRoutingQuery(): void
+    {
+        $query = $this->manager
+            ->using('here')
+            ->createRoutingQuery()
+        ;
+
+        $this->assertInstanceOf(RoutingQueryInterface::class, $query);
+    }
+
+    public function testCreateDistanceMatrixQueryUnsupported(): void
+    {
+        $this->expectException(UnsupportedFeatureException::class);
+
+        $this->manager
+            ->getProviderAggregator()
+            ->registerProvider(new Dummy(new Client()))
+        ;
+
+        $this->manager
+            ->using('dummy')
+            ->createDistanceMatrixQuery()
+        ;
+    }
+
+    public function testCreateRoutingQueryUnsupported(): void
+    {
+        $this->expectException(UnsupportedFeatureException::class);
+
+        $this->manager
+            ->getProviderAggregator()
+            ->registerProvider(new Dummy(new Client()))
+        ;
+
+        $this->manager
+            ->using('dummy')
+            ->createRoutingQuery()
+        ;
     }
 }

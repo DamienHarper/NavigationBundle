@@ -83,4 +83,12 @@ class NavigationManager
     {
         return $this->providerAggregator->getProviders();
     }
+
+    /**
+     * @return ProviderAggregator
+     */
+    public function getProviderAggregator(): ProviderAggregator
+    {
+        return $this->providerAggregator;
+    }
 }
