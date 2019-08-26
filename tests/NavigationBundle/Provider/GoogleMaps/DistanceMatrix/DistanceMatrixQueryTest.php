@@ -122,7 +122,19 @@ class DistanceMatrixQueryTest extends BaseTest
 
         $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
 
-        $this->assertCount(2, $response->getRows());
+        $rows = $response->getRows();
+        $this->assertCount(2, $rows);
+
+        foreach ($rows as $row) {
+            $elements = $row->getElements();
+            $this->assertCount(2, $elements);
+            foreach ($elements as $element) {
+                $this->assertSame(Element::STATUS_OK, $element->getStatus());
+            }
+        }
+
+        $this->assertCount(2, $response->getOriginAddresses());
+        $this->assertCount(2, $response->getDestinationAddresses());
     }
 
     /**

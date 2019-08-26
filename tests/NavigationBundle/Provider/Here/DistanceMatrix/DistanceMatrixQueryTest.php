@@ -130,6 +130,9 @@ class DistanceMatrixQueryTest extends BaseTest
                 $this->assertSame(Element::STATUS_OK, $element->getStatus());
             }
         }
+
+        $this->assertCount(2, $response->getOriginAddresses());
+        $this->assertCount(2, $response->getDestinationAddresses());
     }
 
     /**
