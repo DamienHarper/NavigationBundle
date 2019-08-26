@@ -250,15 +250,11 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         );
 
         if (null !== $this->arrival_time) {
-            $data['arrival_time'] = $this->arrival_time
-                ->format('Y-m-d\TH:i:s')
-            ;
+            $data['arrival_time'] = $this->arrival_time->getTimestamp();
         }
 
         if (null !== $this->getDepartureTime()) {
-            $data['departure_time'] = $this->getDepartureTime()
-                ->format('Y-m-d\TH:i:s')
-            ;
+            $data['departure_time'] = $this->getDepartureTime()->getTimestamp();
         }
 
         $data = array_filter($data, function ($value) {
