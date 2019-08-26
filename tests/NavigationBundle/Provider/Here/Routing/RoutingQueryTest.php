@@ -4,7 +4,9 @@ namespace DH\NavigationBundle\Tests\Provider\Here\Routing;
 
 use DH\DoctrineAuditBundle\Tests\BaseTest;
 use DH\NavigationBundle\Contract\Routing\RoutingResponseInterface;
+use DH\NavigationBundle\Exception\InvalidArgumentException;
 use DH\NavigationBundle\Exception\WaypointException;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * @covers \DH\NavigationBundle\Contract\Routing\AbstractRoutingQuery
@@ -127,5 +129,82 @@ class RoutingQueryTest extends BaseTest
 
         $steps = $legs[0]->getSteps();
         $this->assertGreaterThanOrEqual(1, $steps);
+    }
+
+    /**
+     * @depends testExecute
+     */
+    public function testExecuteWithDepartureTime(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createRoutingQuery()
+        ;
+        $response = $query
+            ->setDepartureTime(new \DateTime('now'))
+            ->addWaypoint('45.834278,1.260816')
+            ->addWaypoint('44.830109,-0.603649')
+            ->execute()
+        ;
+
+        $this->assertInstanceOf(RoutingResponseInterface::class, $response);
+
+        $routes = $response->getRoutes();
+        $this->assertGreaterThanOrEqual(1, $routes);
+
+        $this->assertNotNull($routes[0]->getSummary());
+
+        $legs = $routes[0]->getLegs();
+        $this->assertGreaterThanOrEqual(1, $legs);
+
+        $steps = $legs[0]->getSteps();
+        $this->assertGreaterThanOrEqual(1, $steps);
+    }
+
+    /**
+     * @depends testExecute
+     */
+    public function testExecuteWithArrivalTime(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createRoutingQuery()
+        ;
+
+        $this->expectException(RequestException::class);
+
+        $response = $query
+            ->setArrivalTime(new \DateTime('now'))
+            ->addWaypoint('45.834278,1.260816')
+            ->addWaypoint('44.830109,-0.603649')
+            ->execute()
+        ;
+    }
+
+    /**
+     * @depends testExecute
+     */
+    public function testExecuteWithBothDestinationAndArrivalTime(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createRoutingQuery()
+        ;
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $response = $query
+            ->setDepartureTime(new \DateTime('now'))
+            ->setArrivalTime(new \DateTime('now'))
+            ->addWaypoint('45.834278,1.260816')
+            ->addWaypoint('44.830109,-0.603649')
+            ->execute()
+        ;
     }
 }

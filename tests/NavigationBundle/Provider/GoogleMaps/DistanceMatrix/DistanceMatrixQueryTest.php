@@ -6,6 +6,7 @@ use DH\DoctrineAuditBundle\Tests\BaseTest;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
 use DH\NavigationBundle\Exception\DestinationException;
 use DH\NavigationBundle\Exception\OriginException;
+use DH\NavigationBundle\Model\DistanceMatrix\Element;
 
 /**
  * @covers \DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery
@@ -122,5 +123,73 @@ class DistanceMatrixQueryTest extends BaseTest
         $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
 
         $this->assertCount(2, $response->getRows());
+    }
+
+    /**
+     * @depends testExecute
+     */
+    public function testExecuteWithDepartureTime(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('google_maps')
+            ->createDistanceMatrixQuery()
+        ;
+        $response = $query
+            ->setDepartureTime(new \DateTime('now'))
+            ->addOrigin('45.834278,1.260816')
+            ->addOrigin('46.110605,1.370078')
+            ->addDestination('44.830109,-0.603649')
+            ->addDestination('45.835475,1.242453')
+            ->execute()
+        ;
+
+        $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
+
+        $this->assertCount(2, $response->getRows());
+    }
+
+    /**
+     * @depends testExecuteWithoutDestination
+     */
+    public function testExecuteWithUnreachableWaypoints(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createDistanceMatrixQuery()
+        ;
+        $response = $query
+            ->addOrigin('43.483112,-1.482307')
+            ->addOrigin('45.834278,1.260816')
+            ->addDestination('-3.853220,-41.595480')
+            ->addDestination('44.830109,-0.603649')
+            ->execute()
+        ;
+
+        $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
+
+        $rows = $response->getRows();
+        $this->assertCount(2, $rows);
+
+        $row = $rows[0];
+        $elements = $row->getElements();
+        $this->assertCount(2, $elements);
+
+        $element = $elements[0];
+        $this->assertSame(Element::STATUS_FAILED, $element->getStatus());
+        $element = $elements[1];
+        $this->assertSame(Element::STATUS_OK, $element->getStatus());
+
+        $row = $rows[1];
+        $elements = $row->getElements();
+        $this->assertCount(2, $elements);
+
+        $element = $elements[0];
+        $this->assertSame(Element::STATUS_FAILED, $element->getStatus());
+        $element = $elements[1];
+        $this->assertSame(Element::STATUS_OK, $element->getStatus());
     }
 }

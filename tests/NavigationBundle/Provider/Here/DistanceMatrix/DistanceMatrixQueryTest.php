@@ -133,6 +133,40 @@ class DistanceMatrixQueryTest extends BaseTest
     }
 
     /**
+     * @depends testExecute
+     */
+    public function testExecuteWithDepartureTime(): void
+    {
+        $this->checkCredentials();
+
+        $query = $this->manager
+            ->using('here')
+            ->createDistanceMatrixQuery()
+        ;
+        $response = $query
+            ->setDepartureTime(new \DateTime('now'))
+            ->addOrigin('45.834278,1.260816')
+            ->addOrigin('46.110605,1.370078')
+            ->addDestination('44.830109,-0.603649')
+            ->addDestination('45.835475,1.242453')
+            ->execute()
+        ;
+
+        $this->assertInstanceOf(DistanceMatrixResponseInterface::class, $response);
+
+        $rows = $response->getRows();
+        $this->assertCount(2, $rows);
+
+        foreach ($rows as $row) {
+            $elements = $row->getElements();
+            $this->assertCount(2, $elements);
+            foreach ($elements as $element) {
+                $this->assertSame(Element::STATUS_OK, $element->getStatus());
+            }
+        }
+    }
+
+    /**
      * @depends testExecuteWithoutDestination
      */
     public function testExecuteWithUnreachableWaypoints(): void
