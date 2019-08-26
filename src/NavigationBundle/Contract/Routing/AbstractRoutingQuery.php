@@ -2,6 +2,7 @@
 
 namespace DH\NavigationBundle\Contract\Routing;
 
+use DH\NavigationBundle\Exception\InvalidArgumentException;
 use DH\NavigationBundle\Exception\ResponseException;
 use DH\NavigationBundle\Exception\WaypointException;
 use DH\NavigationBundle\Provider\ProviderInterface;
@@ -218,6 +219,7 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
+     * @throws InvalidArgumentException
      * @throws WaypointException
      */
     private function validateRequest(): void
@@ -227,7 +229,7 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
         }
 
         if (null !== $this->getDepartureTime() && null !== $this->getArrivalTime()) {
-            throw new WaypointException('departure_time and arrival_time cannot be both specified at the same time.');
+            throw new InvalidArgumentException('departure_time and arrival_time cannot be both specified at the same time.');
         }
     }
 }
