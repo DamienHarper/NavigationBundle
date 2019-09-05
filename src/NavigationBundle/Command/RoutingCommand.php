@@ -54,13 +54,14 @@ class RoutingCommand extends Command implements ContainerAwareInterface
             ->addOption('language', null, InputOption::VALUE_REQUIRED, 'Language (fr-FR, en-US, etc.)')
             ->setHelp(
                 <<<'HELP'
-The <info>navigation:routing</info> command will compute a route from the given addresses.
-
-You can choose a provider with the "provider" option.
-
-<info>php bin/console navigation:routing --waypoint="45.834278,1.260816" --waypoint="44.830109,-0.603649" --provider=here</info>
-HELP
-            );
+                    The <info>navigation:routing</info> command will compute a route from the given addresses.
+                    
+                    You can choose a provider with the "provider" option.
+                    
+                    <info>php bin/console navigation:routing --waypoint="45.834278,1.260816" --waypoint="44.830109,-0.603649" --provider=here</info>
+                    HELP
+            )
+        ;
     }
 
     /**

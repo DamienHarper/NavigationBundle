@@ -6,7 +6,6 @@ use DH\DoctrineAuditBundle\Tests\BaseTest;
 use DH\NavigationBundle\Contract\Routing\RoutingResponseInterface;
 use DH\NavigationBundle\Exception\InvalidArgumentException;
 use DH\NavigationBundle\Exception\WaypointException;
-use GuzzleHttp\Exception\RequestException;
 
 /**
  * @covers \DH\NavigationBundle\Contract\Routing\AbstractRoutingQuery

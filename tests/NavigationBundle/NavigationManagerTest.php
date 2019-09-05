@@ -7,7 +7,6 @@ use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixQueryInterface;
 use DH\NavigationBundle\Contract\Routing\RoutingQueryInterface;
 use DH\NavigationBundle\Exception\ProviderNotRegistered;
 use DH\NavigationBundle\Exception\UnsupportedFeatureException;
-use DH\NavigationBundle\NavigationManager;
 use DH\NavigationBundle\Provider\ProviderInterface;
 use DH\NavigationBundle\Tests\Provider\Dummy\Dummy;
 use GuzzleHttp\Client;

@@ -38,26 +38,26 @@ class RoutingQuery extends AbstractRoutingQuery
     /**
      * URL for API.
      */
-    const ENDPOINT_URL = 'https://route.api.here.com/routing/7.2/calculateroute.json';
+    public const ENDPOINT_URL = 'https://route.api.here.com/routing/7.2/calculateroute.json';
 
     /**
      * URL for API (CIT).
      */
-    const CIT_ENDPOINT_URL = 'https://route.cit.api.here.com/routing/7.2/calculateroute.json';
+    public const CIT_ENDPOINT_URL = 'https://route.cit.api.here.com/routing/7.2/calculateroute.json';
 
-    const TRANSPORT_MODE_CAR = 'car';
-    const TRANSPORT_MODE_CAR_HOV = 'carHOV';
-    const TRANSPORT_MODE_PEDESTRIAN = 'pedestrian';
-    const TRANSPORT_MODE_BICYCLE = 'bicycle';
-    const TRANSPORT_MODE_TRUCK = 'truck';
+    public const TRANSPORT_MODE_CAR = 'car';
+    public const TRANSPORT_MODE_CAR_HOV = 'carHOV';
+    public const TRANSPORT_MODE_PEDESTRIAN = 'pedestrian';
+    public const TRANSPORT_MODE_BICYCLE = 'bicycle';
+    public const TRANSPORT_MODE_TRUCK = 'truck';
 
-    const ROUTING_MODE_FASTEST = 'fastest';
-    const ROUTING_MODE_SHORTEST = 'shortest';
-    const ROUTING_MODE_BALANCED = 'balanced';
+    public const ROUTING_MODE_FASTEST = 'fastest';
+    public const ROUTING_MODE_SHORTEST = 'shortest';
+    public const ROUTING_MODE_BALANCED = 'balanced';
 
-    const TRAFFIC_MODE_ENABLED = 'enabled';
-    const TRAFFIC_MODE_DISABLED = 'disabled';
-    const TRAFFIC_MODE_DEFAULT = 'default';
+    public const TRAFFIC_MODE_ENABLED = 'enabled';
+    public const TRAFFIC_MODE_DISABLED = 'disabled';
+    public const TRAFFIC_MODE_DEFAULT = 'default';
 
     /**
      * @param string $mode

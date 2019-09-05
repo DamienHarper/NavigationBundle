@@ -63,7 +63,8 @@ class DHNavigationExtension extends Extension
                 $serviceId = 'dh_navigation.provider.'.$providerName;
                 $def = $container->register($serviceId, $factoryClass)
                     ->setFactory([new Reference($factoryClass), 'createProvider'])
-                    ->addArgument($providerConfig['options']);
+                    ->addArgument($providerConfig['options'])
+                ;
 
                 $def->addTag('dh_navigation.provider');
                 foreach ($providerConfig['aliases'] as $alias) {

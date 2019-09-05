@@ -46,33 +46,33 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * URL for API.
      */
-    const ENDPOINT_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
+    public const ENDPOINT_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
 
-    const MODE_DRIVING = 'driving';
-    const MODE_WALKING = 'walking';
-    const MODE_BICYCLING = 'bicycling';
-    const MODE_TRANSIT = 'transit';
+    public const MODE_DRIVING = 'driving';
+    public const MODE_WALKING = 'walking';
+    public const MODE_BICYCLING = 'bicycling';
+    public const MODE_TRANSIT = 'transit';
 
-    const UNITS_METRIC = 'metric';
-    const UNITS_IMPERIAL = 'imperial';
+    public const UNITS_METRIC = 'metric';
+    public const UNITS_IMPERIAL = 'imperial';
 
-    const AVOID_TOLLS = 'tolls';
-    const AVOID_HIGHWAYS = 'highways';
-    const AVOID_FERRIES = 'ferries';
-    const AVOID_INDOOR = 'indoor';
+    public const AVOID_TOLLS = 'tolls';
+    public const AVOID_HIGHWAYS = 'highways';
+    public const AVOID_FERRIES = 'ferries';
+    public const AVOID_INDOOR = 'indoor';
 
-    const TRAFFIC_MODE_BEST_GUESS = 'best_guess';
-    const TRAFFIC_MODE_PESSIMISTIC = 'pessimistic';
-    const TRAFFIC_MODE_OPTIMISTIC = 'optimistic';
+    public const TRAFFIC_MODE_BEST_GUESS = 'best_guess';
+    public const TRAFFIC_MODE_PESSIMISTIC = 'pessimistic';
+    public const TRAFFIC_MODE_OPTIMISTIC = 'optimistic';
 
-    const TRANSIT_MODE_BUS = 'bus';
-    const TRANSIT_MODE_SUBWAY = 'subway';
-    const TRANSIT_MODE_TRAIN = 'train';
-    const TRANSIT_MODE_TRAM = 'tram';
-    const TRANSIT_MODE_RAIL = 'rail';
+    public const TRANSIT_MODE_BUS = 'bus';
+    public const TRANSIT_MODE_SUBWAY = 'subway';
+    public const TRANSIT_MODE_TRAIN = 'train';
+    public const TRANSIT_MODE_TRAM = 'tram';
+    public const TRANSIT_MODE_RAIL = 'rail';
 
-    const ROUTING_LESS_WALKING = 'less_walking';
-    const ROUTING_FEWER_TRANSFERS = 'fewer_transfers';
+    public const ROUTING_LESS_WALKING = 'less_walking';
+    public const ROUTING_FEWER_TRANSFERS = 'fewer_transfers';
 
     /**
      * @return string

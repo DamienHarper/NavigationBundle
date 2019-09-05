@@ -50,13 +50,14 @@ class DistanceMatrixCommand extends Command implements ContainerAwareInterface
             ->addOption('to', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Destination')
             ->setHelp(
                 <<<'HELP'
-The <info>navigation:distance-matrix</info> command will compute a distance matrix from the given addresses.
-
-You can choose a provider with the "provider" option.
-
-<info>php bin/console navigation:distance-matrix --from="45.834278,1.260816" --to="44.830109,-0.603649" --provider=here</info>
-HELP
-            );
+                    The <info>navigation:distance-matrix</info> command will compute a distance matrix from the given addresses.
+                    
+                    You can choose a provider with the "provider" option.
+                    
+                    <info>php bin/console navigation:distance-matrix --from="45.834278,1.260816" --to="44.830109,-0.603649" --provider=here</info>
+                    HELP
+            )
+        ;
     }
 
     /**
