@@ -18,25 +18,17 @@ class Duration
 
     /**
      * @param int
-     *
-     * @return string
      */
     public function getFormattedValue(int $precision = 1): string
     {
         return FormatHelper::formatTime($this->value, $precision);
     }
 
-    /**
-     * @return int
-     */
     public function getValue(): int
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->getFormattedValue();

@@ -35,10 +35,6 @@ class DHNavigationExtension extends Extension
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     * @param array            $config
-     */
     private function loadProviders(ContainerBuilder $container, array $config): void
     {
         foreach ($config['providers'] as $providerName => $providerConfig) {
@@ -74,11 +70,6 @@ class DHNavigationExtension extends Extension
         }
     }
 
-    /**
-     * @param array $options
-     *
-     * @return array
-     */
     private function findReferences(array $options): array
     {
         foreach ($options as $key => $value) {
@@ -92,11 +83,6 @@ class DHNavigationExtension extends Extension
         return $options;
     }
 
-    /**
-     * @param string $factoryClass
-     *
-     * @return bool
-     */
     private function implementsProviderFactory(string $factoryClass): bool
     {
         if (false === $interfaces = class_implements($factoryClass)) {

@@ -8,6 +8,7 @@ use DH\NavigationBundle\Model\Routing\Route;
 use DH\NavigationBundle\Model\Routing\Step;
 use DH\NavigationBundle\Model\Routing\Summary;
 use Psr\Http\Message\ResponseInterface;
+use stdClass;
 
 class RoutingResponse implements RoutingResponseInterface
 {
@@ -17,7 +18,7 @@ class RoutingResponse implements RoutingResponseInterface
     private $status;
 
     /**
-     * @var \stdClass
+     * @var stdClass
      */
     private $responseObject;
 
@@ -29,14 +30,15 @@ class RoutingResponse implements RoutingResponseInterface
     public function __construct(ResponseInterface $response)
     {
         $responseObject = json_decode($response->getBody()->getContents());
-        $this->responseObject = $responseObject;
         $this->status = $response->getReasonPhrase();
+        $this->responseObject = $responseObject;
+        $this->routes = [];
 
         $this->initialize();
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getStatus(): string
     {
@@ -44,9 +46,9 @@ class RoutingResponse implements RoutingResponseInterface
     }
 
     /**
-     * @return \stdClass
+     * {@inheritdoc}
      */
-    public function getResponseObject(): \stdClass
+    public function getResponseObject(): stdClass
     {
         return $this->responseObject;
     }
@@ -85,7 +87,7 @@ class RoutingResponse implements RoutingResponseInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getRoutes(): array
     {

@@ -37,13 +37,9 @@ class Element
     /**
      * Element constructor.
      *
-     * @param $status
-     * @param ?Duration $duration
-     * @param ?Distance $distance
-     *
      * @throws \Exception
      */
-    public function __construct($status, ?Duration $duration, ?Distance $distance)
+    public function __construct(string $status, ?Duration $duration, ?Distance $distance)
     {
         if (!\in_array($status, self::STATUS, true)) {
             throw new \Exception(sprintf('Unknown status code: %s', $status));
@@ -54,26 +50,17 @@ class Element
         $this->distance = $distance;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @return Duration
-     */
-    public function getDuration(): Duration
+    public function getDuration(): ?Duration
     {
         return $this->duration;
     }
 
-    /**
-     * @return Distance
-     */
-    public function getDistance(): Distance
+    public function getDistance(): ?Distance
     {
         return $this->distance;
     }

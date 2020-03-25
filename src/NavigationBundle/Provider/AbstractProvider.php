@@ -19,7 +19,7 @@ abstract class AbstractProvider implements ProviderInterface
     /**
      * Returns the HTTP adapter.
      *
-     * @return ClientInterface
+     * {@inheritdoc}
      */
     public function getClient(): ClientInterface
     {

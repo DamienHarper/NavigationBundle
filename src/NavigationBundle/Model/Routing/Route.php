@@ -5,9 +5,9 @@ namespace DH\NavigationBundle\Model\Routing;
 class Route
 {
     /**
-     * @var array|Leg[]
+     * @var Leg[]
      */
-    private $legs = [];
+    private $legs;
 
     /**
      * @var Summary
@@ -16,19 +16,19 @@ class Route
 
     public function __construct(array $data)
     {
-        $this->legs = $data['legs'];
+        $this->legs = $data['legs'] ?? [];
         $this->summary = $data['summary'];
     }
 
     /**
-     * @return array|Leg[]
+     * @return Leg[]
      */
     public function getLegs(): array
     {
         return $this->legs;
     }
 
-    public function getSummary(): ?Summary
+    public function getSummary(): Summary
     {
         return $this->summary;
     }

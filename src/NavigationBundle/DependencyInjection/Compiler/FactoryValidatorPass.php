@@ -25,9 +25,6 @@ class FactoryValidatorPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param string $factoryServiceIds
-     */
     public static function addFactoryServiceId(string $factoryServiceIds): void
     {
         self::$factoryServiceIds[] = $factoryServiceIds;

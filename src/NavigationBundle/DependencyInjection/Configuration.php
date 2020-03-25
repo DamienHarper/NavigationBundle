@@ -3,7 +3,6 @@
 namespace DH\NavigationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -15,47 +14,20 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('dh_navigation');
-
-        // Keep compatibility with symfony/config < 4.2
-        /** @var ParentNodeDefinitionInterface $rootNode */
-        $rootNode = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('dh_navigation');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
             ->append($this->getProvidersNode())
-//                ->arrayNode('providers')
-//                ->requiresAtLeastOneElement()
-//                    ->prototype('array')
-//                        ->children()
-//                            ->scalarNode('factory')
-//                                ->defaultValue('')
-//                            ->end()
-//                            ->arrayNode('options')
-//                                ->canBeUnset()
-//                                ->prototype('scalar')->end()
-//                            ->end()
-////                            ->booleanNode('enabled')
-////                                ->defaultTrue()
-////                            ->end()
-//                        ->end()
-//                    ->end()
-//                ->end()
-//            ->end()
         ;
 
         return $treeBuilder;
     }
 
-    /**
-     * @return ArrayNodeDefinition
-     */
     private function getProvidersNode(): ArrayNodeDefinition
     {
         $treeBuilder = new TreeBuilder('providers');
-
-        // Keep compatibility with symfony/config < 4.2
-        /** @var ParentNodeDefinitionInterface $rootNode */
-        $node = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('providers');
+        $node = $treeBuilder->getRootNode();
 
         $node
             ->requiresAtLeastOneElement()

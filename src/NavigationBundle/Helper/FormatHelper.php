@@ -4,12 +4,6 @@ namespace DH\NavigationBundle\Helper;
 
 class FormatHelper
 {
-    /**
-     * @param int $duration
-     * @param int $precision
-     *
-     * @return string
-     */
     public static function formatTime(int $duration, int $precision = 1): string
     {
         static $formats = [
@@ -44,14 +38,10 @@ class FormatHelper
                 }
             }
         }
+
+        return '';
     }
 
-    /**
-     * @param int $distance
-     * @param int $precision
-     *
-     * @return string
-     */
     public static function formatDistance(int $distance, int $precision = 1): string
     {
         if ($distance < 1000) {

@@ -2,6 +2,7 @@
 
 namespace DH\NavigationBundle\Provider\GoogleMaps\DistanceMatrix;
 
+use DateTime;
 use DH\NavigationBundle\Contract\DistanceMatrix\AbstractDistanceMatrixQuery;
 use DH\NavigationBundle\Contract\DistanceMatrix\DistanceMatrixResponseInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -24,7 +25,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     private $avoid;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $arrival_time;
 
@@ -74,17 +75,12 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     public const ROUTING_LESS_WALKING = 'less_walking';
     public const ROUTING_FEWER_TRANSFERS = 'fewer_transfers';
 
-    /**
-     * @return string
-     */
     public function getTransitRoutingPreference(): string
     {
         return $this->transit_routing_preference;
     }
 
     /**
-     * @param string $transit_routing_preference
-     *
      * @return DistanceMatrixQuery
      */
     public function setTransitRoutingPreference(string $transit_routing_preference): self
@@ -94,9 +90,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getTransitModes(): array
     {
         return $this->transit_modes;
@@ -126,17 +119,12 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTrafficModel(): string
     {
         return $this->traffic_model;
     }
 
     /**
-     * @param string $traffic_model
-     *
      * @return DistanceMatrixQuery
      */
     public function setTrafficModel(string $traffic_model = self::TRAFFIC_MODE_BEST_GUESS): self
@@ -146,20 +134,15 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getArrivalTime(): \DateTime
+    public function getArrivalTime(): DateTime
     {
         return $this->arrival_time;
     }
 
     /**
-     * @param \DateTime $arrival_time
-     *
      * @return DistanceMatrixQuery
      */
-    public function setArrivalTime(\DateTime $arrival_time): self
+    public function setArrivalTime(DateTime $arrival_time): self
     {
         $this->arrival_time = $arrival_time;
 
@@ -178,9 +161,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getUnits(): string
     {
         return $this->units;
@@ -198,9 +178,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getMode(): string
     {
         return $this->mode;
@@ -218,9 +195,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAvoid(): string
     {
         return $this->avoid;
@@ -229,7 +203,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * @see https://developers.google.com/maps/documentation/distance-matrix/intro
      *
-     * @return string
+     * {@inheritdoc}
      */
     protected function buildRequest(): string
     {
@@ -257,7 +231,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
             $data['departure_time'] = $this->getDepartureTime()->getTimestamp();
         }
 
-        $data = array_filter($data, function ($value) {
+        $data = array_filter($data, static function ($value) {
             return null !== $value;
         });
 
@@ -267,12 +241,10 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     }
 
     /**
-     * @param ResponseInterface $response
-     *
-     * @return DistanceMatrixResponseInterface
+     * {@inheritdoc}
      */
     protected function buildResponse(ResponseInterface $response): DistanceMatrixResponseInterface
     {
-        return new DistanceMatrixResponse($response, $this->getOrigins(), $this->getDestinations());
+        return new DistanceMatrixResponse($response);
     }
 }

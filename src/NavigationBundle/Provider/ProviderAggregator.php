@@ -19,8 +19,6 @@ class ProviderAggregator
     /**
      * Registers a new provider to the aggregator.
      *
-     * @param ProviderInterface $provider
-     *
      * @return ProviderAggregator
      */
     public function registerProvider(ProviderInterface $provider): self
@@ -48,8 +46,6 @@ class ProviderAggregator
 
     /**
      * Sets the default provider to use.
-     *
-     * @param string $name
      *
      * @return ProviderAggregator
      */

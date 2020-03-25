@@ -6,7 +6,6 @@ use DH\NavigationBundle\Provider\ProviderInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -33,8 +32,6 @@ class TestClient implements ClientInterface
     }
 
     /**
-     * @param ProviderInterface $provider
-     *
      * @return TestClient
      */
     public function setProvider(ProviderInterface $provider): self
@@ -51,12 +48,9 @@ class TestClient implements ClientInterface
      * @param array            $options request options to apply to the given
      *                                  request and to the transfer
      *
-     * @throws GuzzleException
      * @throws \Exception
-     *
-     * @return ResponseInterface
      */
-    public function send(RequestInterface $request, array $options = [])
+    public function send(RequestInterface $request, array $options = []): void
     {
         throw new \Exception('Not implemented.');
     }
@@ -69,10 +63,8 @@ class TestClient implements ClientInterface
      *                                  request and to the transfer
      *
      * @throws \Exception
-     *
-     * @return PromiseInterface
      */
-    public function sendAsync(RequestInterface $request, array $options = [])
+    public function sendAsync(RequestInterface $request, array $options = []): void
     {
         throw new \Exception('Not implemented.');
     }
@@ -127,10 +119,8 @@ class TestClient implements ClientInterface
      * @param array               $options request options to apply
      *
      * @throws \Exception
-     *
-     * @return PromiseInterface
      */
-    public function requestAsync($method, $uri, array $options = [])
+    public function requestAsync($method, $uri, array $options = []): void
     {
         throw new \Exception('Not implemented.');
     }
@@ -142,13 +132,11 @@ class TestClient implements ClientInterface
      * (if utilized by the concrete client), and a "base_uri" if utilized by
      * the concrete client.
      *
-     * @param null|string $option the config option to retrieve
+     * @param string|null $option the config option to retrieve
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public function getConfig($option = null)
+    public function getConfig($option = null): void
     {
         throw new \Exception('Not implemented.');
     }

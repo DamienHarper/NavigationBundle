@@ -61,8 +61,6 @@ class RoutingQuery extends AbstractRoutingQuery
 
     /**
      * @param string $mode
-     *
-     * @return RoutingQueryInterface
      */
     public function setRoutingMode($mode = self::ROUTING_MODE_FASTEST): RoutingQueryInterface
     {
@@ -71,9 +69,6 @@ class RoutingQuery extends AbstractRoutingQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRoutingMode(): string
     {
         return $this->routingMode ?? self::ROUTING_MODE_FASTEST;
@@ -81,8 +76,6 @@ class RoutingQuery extends AbstractRoutingQuery
 
     /**
      * @param string $mode
-     *
-     * @return RoutingQueryInterface
      */
     public function setTransportMode($mode = self::TRANSPORT_MODE_CAR): RoutingQueryInterface
     {
@@ -91,9 +84,6 @@ class RoutingQuery extends AbstractRoutingQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTransportMode(): string
     {
         return $this->transportMode ?? self::TRANSPORT_MODE_CAR;
@@ -101,8 +91,6 @@ class RoutingQuery extends AbstractRoutingQuery
 
     /**
      * @param string $mode
-     *
-     * @return RoutingQueryInterface
      */
     public function setTrafficMode($mode = self::TRAFFIC_MODE_DEFAULT): RoutingQueryInterface
     {
@@ -111,9 +99,6 @@ class RoutingQuery extends AbstractRoutingQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTrafficMode(): string
     {
         return $this->trafficMode ?? self::TRAFFIC_MODE_DEFAULT;
@@ -121,8 +106,6 @@ class RoutingQuery extends AbstractRoutingQuery
 
     /**
      * @param string $avoid (for more values use | as separator)
-     *
-     * @return RoutingQueryInterface
      */
     public function setAvoid(string $avoid): RoutingQueryInterface
     {
@@ -131,9 +114,6 @@ class RoutingQuery extends AbstractRoutingQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAvoid(): string
     {
         return $this->avoid;
@@ -142,7 +122,7 @@ class RoutingQuery extends AbstractRoutingQuery
     /**
      * @see https://developer.here.com/documentation/routing/topics/resource-calculate-route.html
      *
-     * @return string
+     * {@inheritdoc}
      */
     protected function buildRequest(): string
     {
@@ -167,9 +147,8 @@ class RoutingQuery extends AbstractRoutingQuery
             $data['departure'] = 'now';
         }
 
-        $count = \count($this->waypoints);
-        for ($i = 0; $i < $count; ++$i) {
-            $data['waypoint'.$i] = str_replace(' ', '', $this->waypoints[$i]);
+        foreach ($this->waypoints as $i => $value) {
+            $data['waypoint'.$i] = str_replace(' ', '', $value);
         }
 
         $data = array_filter($data, static function ($value) {
@@ -181,15 +160,12 @@ class RoutingQuery extends AbstractRoutingQuery
             $parameters[] = $key.'='.$value;
         }
         $parameters = implode('&', $parameters);
-        $url = ($this->getProvider()->isCitEnabled() ? self::CIT_ENDPOINT_URL : self::ENDPOINT_URL).'?'.$parameters;
 
-        return $url;
+        return ($this->getProvider()->isCitEnabled() ? self::CIT_ENDPOINT_URL : self::ENDPOINT_URL).'?'.$parameters;
     }
 
     /**
-     * @param ResponseInterface $response
-     *
-     * @return RoutingResponseInterface
+     * {@inheritdoc}
      */
     protected function buildResponse(ResponseInterface $response): RoutingResponseInterface
     {

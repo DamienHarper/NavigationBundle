@@ -10,14 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class AddProvidersPass implements CompilerPassInterface
 {
     /**
-     * @var ContainerBuilder
-     */
-    protected $container;
-
-    /**
      * Get all providers based on their tag (`dh_navigation.provider`) and register them.
-     *
-     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container): void
     {

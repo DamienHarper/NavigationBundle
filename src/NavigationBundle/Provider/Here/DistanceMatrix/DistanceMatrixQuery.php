@@ -61,8 +61,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
 
     /**
      * @param string $mode
-     *
-     * @return DistanceMatrixQueryInterface
      */
     public function setRoutingMode($mode = self::ROUTING_MODE_FASTEST): DistanceMatrixQueryInterface
     {
@@ -71,9 +69,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRoutingMode(): string
     {
         return $this->routingMode ?? self::ROUTING_MODE_FASTEST;
@@ -81,8 +76,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
 
     /**
      * @param string $mode
-     *
-     * @return DistanceMatrixQueryInterface
      */
     public function setTransportMode($mode = self::TRANSPORT_MODE_CAR): DistanceMatrixQueryInterface
     {
@@ -91,9 +84,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTransportMode(): string
     {
         return $this->transportMode ?? self::TRANSPORT_MODE_CAR;
@@ -101,8 +91,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
 
     /**
      * @param string $mode
-     *
-     * @return DistanceMatrixQueryInterface
      */
     public function setTrafficMode($mode = self::TRAFFIC_MODE_DEFAULT): DistanceMatrixQueryInterface
     {
@@ -111,9 +99,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTrafficMode(): string
     {
         return $this->trafficMode ?? self::TRAFFIC_MODE_DEFAULT;
@@ -121,8 +106,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
 
     /**
      * @param string $avoid (for more values use | as separator)
-     *
-     * @return DistanceMatrixQueryInterface
      */
     public function setAvoid(string $avoid): DistanceMatrixQueryInterface
     {
@@ -131,9 +114,6 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAvoid(): string
     {
         return $this->avoid;
@@ -142,7 +122,7 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
     /**
      * @see https://developer.here.com/documentation/routing/topics/resource-calculate-matrix.html
      *
-     * @return string
+     * {@inheritdoc}
      */
     protected function buildRequest(): string
     {
@@ -183,15 +163,12 @@ class DistanceMatrixQuery extends AbstractDistanceMatrixQuery
             $parameters[] = $key.'='.$value;
         }
         $parameters = implode('&', $parameters);
-        $url = ($this->getProvider()->isCitEnabled() ? self::CIT_ENDPOINT_URL : self::ENDPOINT_URL).'?'.$parameters;
 
-        return $url;
+        return ($this->getProvider()->isCitEnabled() ? self::CIT_ENDPOINT_URL : self::ENDPOINT_URL).'?'.$parameters;
     }
 
     /**
-     * @param ResponseInterface $response
-     *
-     * @return DistanceMatrixResponseInterface
+     * {@inheritdoc}
      */
     protected function buildResponse(ResponseInterface $response): DistanceMatrixResponseInterface
     {
