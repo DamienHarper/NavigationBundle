@@ -2,6 +2,7 @@
 
 namespace DH\NavigationBundle\Contract\Routing;
 
+use DateTime;
 use DH\NavigationBundle\Exception\InvalidArgumentException;
 use DH\NavigationBundle\Exception\ResponseException;
 use DH\NavigationBundle\Exception\WaypointException;
@@ -21,28 +22,27 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     protected $waypoints;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      */
     private $departure_time;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      */
     private $arrival_time;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $language;
 
     /**
      * RoutingQuery constructor.
-     *
-     * @param ProviderInterface $provider
      */
     public function __construct(ProviderInterface $provider)
     {
         $this->provider = $provider;
+        $this->waypoints = [];
     }
 
     public function getProvider(): ProviderInterface
@@ -51,19 +51,17 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @return ?\DateTime
+     * {@inheritdoc}
      */
-    public function getDepartureTime(): ?\DateTime
+    public function getDepartureTime(): ?DateTime
     {
         return $this->departure_time;
     }
 
     /**
-     * @param \DateTime $departureTime
-     *
-     * @return RoutingQueryInterface
+     * {@inheritdoc}
      */
-    public function setDepartureTime(\DateTime $departureTime): RoutingQueryInterface
+    public function setDepartureTime(DateTime $departureTime): RoutingQueryInterface
     {
         $this->departure_time = $departureTime;
 
@@ -71,19 +69,17 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @return ?\DateTime
+     * {@inheritdoc}
      */
-    public function getArrivalTime(): ?\DateTime
+    public function getArrivalTime(): ?DateTime
     {
         return $this->arrival_time;
     }
 
     /**
-     * @param \DateTime $arrivalTime
-     *
-     * @return RoutingQueryInterface
+     * {@inheritdoc}
      */
-    public function setArrivalTime(\DateTime $arrivalTime): RoutingQueryInterface
+    public function setArrivalTime(DateTime $arrivalTime): RoutingQueryInterface
     {
         $this->arrival_time = $arrivalTime;
 
@@ -91,9 +87,7 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @param string $language
-     *
-     * @return RoutingQueryInterface
+     * {@inheritdoc}
      */
     public function setLanguage(string $language): RoutingQueryInterface
     {
@@ -103,7 +97,7 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getLanguage(): string
     {
@@ -111,11 +105,9 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @param string $waypoint
-     *
-     * @return RoutingQueryInterface
+     * {@inheritdoc}
      */
-    public function addWaypoint($waypoint): RoutingQueryInterface
+    public function addWaypoint(string $waypoint): RoutingQueryInterface
     {
         $this->waypoints[] = $waypoint;
 
@@ -123,20 +115,20 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @return ?array
+     * {@inheritdoc}
      */
-    public function getWaypoints(): ?array
+    public function getWaypoints(): array
     {
         return $this->waypoints;
     }
 
     /**
-     * @throws OriginException
      * @throws ResponseException
      * @throws WaypointException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws InvalidArgumentException
      *
-     * @return RoutingResponseInterface
+     * {@inheritdoc}
      */
     public function execute(): RoutingResponseInterface
     {
@@ -149,25 +141,12 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
         return $response;
     }
 
-    /**
-     * @return string
-     */
     abstract protected function buildRequest(): string;
 
-    /**
-     * @param ResponseInterface $response
-     *
-     * @return RoutingResponseInterface
-     */
     abstract protected function buildResponse(ResponseInterface $response): RoutingResponseInterface;
 
     /**
-     * @param string $method
-     * @param string $url
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
-     *
-     * @return ResponseInterface
      */
     private function request(string $method, string $url): ResponseInterface
     {
@@ -182,8 +161,6 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
     }
 
     /**
-     * @param RoutingResponseInterface $response
-     *
      * @throws ResponseException
      */
     private function validateResponse(RoutingResponseInterface $response): void
@@ -193,27 +170,21 @@ abstract class AbstractRoutingQuery implements RoutingQueryInterface
                 break;
             case RoutingResponseInterface::RESPONSE_STATUS_INVALID_REQUEST:
                 throw new ResponseException('Invalid request.', 1);
-
                 break;
             case RoutingResponseInterface::RESPONSE_STATUS_MAX_ELEMENTS_EXCEEDED:
                 throw new ResponseException('The product of the origin and destination exceeds the limit per request.', 2);
-
                 break;
             case RoutingResponseInterface::RESPONSE_STATUS_OVER_QUERY_LIMIT:
                 throw new ResponseException('The service has received too many requests from your application in the allowed time range.', 3);
-
                 break;
             case RoutingResponseInterface::RESPONSE_STATUS_REQUEST_DENIED:
                 throw new ResponseException('The service denied the use of the Distance Matrix API service by your application.', 4);
-
                 break;
             case RoutingResponseInterface::RESPONSE_STATUS_UNKNOWN_ERROR:
                 throw new ResponseException('Unknown error.', 5);
-
                 break;
             default:
                 throw new ResponseException(sprintf('Unknown status code: %s', $response->getStatus()), 6);
-
                 break;
         }
     }

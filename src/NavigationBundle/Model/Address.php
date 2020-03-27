@@ -14,14 +14,11 @@ class Address
      *
      * @param $address string
      */
-    public function __construct($address)
+    public function __construct(string $address)
     {
         $this->address = $address;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->address;

@@ -2,6 +2,7 @@
 
 namespace DH\NavigationBundle\Contract\DistanceMatrix;
 
+use DateTime;
 use DH\NavigationBundle\Exception\DestinationException;
 use DH\NavigationBundle\Exception\OriginException;
 use DH\NavigationBundle\Exception\ResponseException;
@@ -26,23 +27,23 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     protected $destinations;
 
     /**
-     * @var \DateTime
+     * @var ?DateTime
      */
     private $departure_time;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $language;
 
     /**
      * DistanceMatrixQuery constructor.
-     *
-     * @param ProviderInterface $provider
      */
     public function __construct(ProviderInterface $provider)
     {
         $this->provider = $provider;
+        $this->origins = [];
+        $this->destinations = [];
     }
 
     public function getProvider(): ProviderInterface
@@ -51,19 +52,17 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return ?\DateTime
+     * {@inheritdoc}
      */
-    public function getDepartureTime(): ?\DateTime
+    public function getDepartureTime(): ?DateTime
     {
         return $this->departure_time;
     }
 
     /**
-     * @param \DateTime $departureTime
-     *
-     * @return DistanceMatrixQueryInterface
+     * {@inheritdoc}
      */
-    public function setDepartureTime(\DateTime $departureTime): DistanceMatrixQueryInterface
+    public function setDepartureTime(DateTime $departureTime): DistanceMatrixQueryInterface
     {
         $this->departure_time = $departureTime;
 
@@ -71,9 +70,7 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @param string $origin
-     *
-     * @return DistanceMatrixQueryInterface
+     * {@inheritdoc}
      */
     public function addOrigin($origin): DistanceMatrixQueryInterface
     {
@@ -83,17 +80,15 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return ?array
+     * {@inheritdoc}
      */
-    public function getOrigins(): ?array
+    public function getOrigins(): array
     {
         return $this->origins;
     }
 
     /**
-     * @param string $destination
-     *
-     * @return DistanceMatrixQueryInterface
+     * {@inheritdoc}
      */
     public function addDestination($destination): DistanceMatrixQueryInterface
     {
@@ -103,17 +98,15 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return ?array
+     * {@inheritdoc}
      */
-    public function getDestinations(): ?array
+    public function getDestinations(): array
     {
         return $this->destinations;
     }
 
     /**
-     * @param string $language
-     *
-     * @return DistanceMatrixQueryInterface
+     * {@inheritdoc}
      */
     public function setLanguage(string $language): DistanceMatrixQueryInterface
     {
@@ -123,7 +116,7 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getLanguage(): string
     {
@@ -136,7 +129,7 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
      * @throws ResponseException
      * @throws \GuzzleHttp\Exception\GuzzleException
      *
-     * @return DistanceMatrixResponseInterface
+     * {@inheritdoc}
      */
     public function execute(): DistanceMatrixResponseInterface
     {
@@ -149,25 +142,12 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
         return $response;
     }
 
-    /**
-     * @return string
-     */
     abstract protected function buildRequest(): string;
 
-    /**
-     * @param ResponseInterface $response
-     *
-     * @return DistanceMatrixResponseInterface
-     */
     abstract protected function buildResponse(ResponseInterface $response): DistanceMatrixResponseInterface;
 
     /**
-     * @param string $method
-     * @param string $url
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
-     *
-     * @return ResponseInterface
      */
     private function request(string $method, string $url): ResponseInterface
     {
@@ -182,8 +162,6 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
     }
 
     /**
-     * @param DistanceMatrixResponseInterface $response
-     *
      * @throws ResponseException
      */
     private function validateResponse(DistanceMatrixResponseInterface $response): void
@@ -193,27 +171,21 @@ abstract class AbstractDistanceMatrixQuery implements DistanceMatrixQueryInterfa
                 break;
             case DistanceMatrixResponseInterface::RESPONSE_STATUS_INVALID_REQUEST:
                 throw new ResponseException('Invalid request.', 1);
-
                 break;
             case DistanceMatrixResponseInterface::RESPONSE_STATUS_MAX_ELEMENTS_EXCEEDED:
                 throw new ResponseException('The product of the origin and destination exceeds the limit per request.', 2);
-
                 break;
             case DistanceMatrixResponseInterface::RESPONSE_STATUS_OVER_QUERY_LIMIT:
                 throw new ResponseException('The service has received too many requests from your application in the allowed time range.', 3);
-
                 break;
             case DistanceMatrixResponseInterface::RESPONSE_STATUS_REQUEST_DENIED:
                 throw new ResponseException('The service denied the use of the Distance Matrix API service by your application.', 4);
-
                 break;
             case DistanceMatrixResponseInterface::RESPONSE_STATUS_UNKNOWN_ERROR:
                 throw new ResponseException('Unknown error.', 5);
-
                 break;
             default:
                 throw new ResponseException(sprintf('Unknown status code: %s', $response->getStatus()), 6);
-
                 break;
         }
     }

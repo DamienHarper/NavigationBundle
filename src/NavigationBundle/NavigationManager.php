@@ -23,8 +23,6 @@ class NavigationManager
     /**
      * Sets the default provider to use.
      *
-     * @param string $name
-     *
      * @return NavigationManager
      */
     public function using(string $name): self
@@ -36,8 +34,6 @@ class NavigationManager
 
     /**
      * @throws UnsupportedFeatureException
-     *
-     * @return DistanceMatrixQueryInterface
      */
     public function createDistanceMatrixQuery(): DistanceMatrixQueryInterface
     {
@@ -52,8 +48,6 @@ class NavigationManager
 
     /**
      * @throws UnsupportedFeatureException
-     *
-     * @return RoutingQueryInterface
      */
     public function createRoutingQuery(): RoutingQueryInterface
     {
@@ -66,27 +60,16 @@ class NavigationManager
         throw new UnsupportedFeatureException(sprintf('Routing is not supported by "%s" provider.', $provider->getName()));
     }
 
-    /**
-     * @param null|string $name
-     *
-     * @return ProviderInterface
-     */
     public function getProvider(?string $name = null): ProviderInterface
     {
         return $this->providerAggregator->getProvider($name);
     }
 
-    /**
-     * @return array
-     */
     public function getProviders(): array
     {
         return $this->providerAggregator->getProviders();
     }
 
-    /**
-     * @return ProviderAggregator
-     */
     public function getProviderAggregator(): ProviderAggregator
     {
         return $this->providerAggregator;

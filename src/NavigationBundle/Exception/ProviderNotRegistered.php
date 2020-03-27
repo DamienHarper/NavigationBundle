@@ -8,9 +8,6 @@ namespace DH\NavigationBundle\Exception;
 final class ProviderNotRegistered extends \RuntimeException
 {
     /**
-     * @param string $providerName
-     * @param array  $registeredProviders
-     *
      * @return ProviderNotRegistered
      */
     public static function create(string $providerName, array $registeredProviders = []): self

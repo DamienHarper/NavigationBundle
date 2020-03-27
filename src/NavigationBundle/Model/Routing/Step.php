@@ -37,8 +37,6 @@ class Step
 
     /**
      * Get the value of position.
-     *
-     * @return array
      */
     public function getPosition(): array
     {
@@ -47,8 +45,6 @@ class Step
 
     /**
      * Get the value of distance.
-     *
-     * @return Distance
      */
     public function getDistance(): Distance
     {
@@ -57,8 +53,6 @@ class Step
 
     /**
      * Get the value of duration.
-     *
-     * @return Duration
      */
     public function getDuration(): Duration
     {
@@ -67,8 +61,6 @@ class Step
 
     /**
      * Get the value of instruction.
-     *
-     * @return string
      */
     public function getInstruction(): string
     {

@@ -7,7 +7,7 @@ use DH\NavigationBundle\Provider\AbstractProvider;
 class Dummy extends AbstractProvider
 {
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -15,7 +15,7 @@ class Dummy extends AbstractProvider
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getCredentials(): array
     {

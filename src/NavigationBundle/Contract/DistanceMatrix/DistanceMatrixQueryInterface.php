@@ -2,19 +2,18 @@
 
 namespace DH\NavigationBundle\Contract\DistanceMatrix;
 
+use DateTime;
+
 interface DistanceMatrixQueryInterface
 {
-    /**
-     * @return ?\DateTime
-     */
-    public function getDepartureTime(): ?\DateTime;
+    public function getDepartureTime(): ?DateTime;
 
     /**
-     * @param \DateTime $departure_time timestamp
+     * @param DateTime $departure_time timestamp
      *
      * @return DistanceMatrixQueryInterface
      */
-    public function setDepartureTime(\DateTime $departure_time): self;
+    public function setDepartureTime(DateTime $departure_time): self;
 
     /**
      * @param string $origin
@@ -23,10 +22,7 @@ interface DistanceMatrixQueryInterface
      */
     public function addOrigin($origin): self;
 
-    /**
-     * @return ?array
-     */
-    public function getOrigins(): ?array;
+    public function getOrigins(): array;
 
     /**
      * @param string $destination
@@ -35,25 +31,14 @@ interface DistanceMatrixQueryInterface
      */
     public function addDestination($destination): self;
 
-    /**
-     * @return ?array
-     */
-    public function getDestinations(): ?array;
+    public function getDestinations(): array;
 
     /**
-     * @param string $language
-     *
      * @return DistanceMatrixQueryInterface
      */
     public function setLanguage(string $language): self;
 
-    /**
-     * @return string
-     */
     public function getLanguage(): string;
 
-    /**
-     * @return DistanceMatrixResponseInterface
-     */
     public function execute(): DistanceMatrixResponseInterface;
 }

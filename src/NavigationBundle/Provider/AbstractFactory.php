@@ -13,11 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class AbstractFactory implements ProviderFactoryInterface
 {
-    /**
-     * @param array $config
-     *
-     * @return ProviderInterface
-     */
     abstract protected function getProvider(array $config): ProviderInterface;
 
     /**
@@ -56,8 +51,6 @@ abstract class AbstractFactory implements ProviderFactoryInterface
     /**
      * By default we do not have any options to configure.
      * A factory should override this function and configure the options resolver.
-     *
-     * @param OptionsResolver $resolver
      */
     protected static function configureOptionResolver(OptionsResolver $resolver): void
     {

@@ -5,7 +5,7 @@ namespace DH\NavigationBundle\Model\DistanceMatrix;
 class Row
 {
     /**
-     * @var array
+     * @var Element[]
      */
     private $elements;
 
@@ -15,7 +15,7 @@ class Row
     }
 
     /**
-     * @return array
+     * @return Element[]
      */
     public function getElements(): array
     {

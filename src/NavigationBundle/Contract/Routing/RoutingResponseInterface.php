@@ -2,6 +2,8 @@
 
 namespace DH\NavigationBundle\Contract\Routing;
 
+use stdClass;
+
 interface RoutingResponseInterface
 {
     public const RESPONSE_STATUS_MAX_ELEMENTS_EXCEEDED = 'MAX_ELEMENTS_EXCEEDED';
@@ -11,18 +13,9 @@ interface RoutingResponseInterface
     public const RESPONSE_STATUS_UNKNOWN_ERROR = 'UNKNOWN_ERROR';
     public const RESPONSE_STATUS_OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT';
 
-    /**
-     * @return mixed
-     */
     public function getStatus(): string;
 
-    /**
-     * @return \stdClass
-     */
-    public function getResponseObject(): \stdClass;
+    public function getResponseObject(): stdClass;
 
-    /**
-     * @return array
-     */
     public function getRoutes(): array;
 }

@@ -2,6 +2,10 @@
 
 namespace DH\NavigationBundle\Contract\DistanceMatrix;
 
+use DH\NavigationBundle\Model\Address;
+use DH\NavigationBundle\Model\DistanceMatrix\Row;
+use stdClass;
+
 interface DistanceMatrixResponseInterface
 {
     public const RESPONSE_STATUS_MAX_ELEMENTS_EXCEEDED = 'MAX_ELEMENTS_EXCEEDED';
@@ -11,28 +15,22 @@ interface DistanceMatrixResponseInterface
     public const RESPONSE_STATUS_UNKNOWN_ERROR = 'UNKNOWN_ERROR';
     public const RESPONSE_STATUS_OVER_QUERY_LIMIT = 'OVER_QUERY_LIMIT';
 
-    /**
-     * @return mixed
-     */
     public function getStatus(): string;
 
-    /**
-     * @return \stdClass
-     */
-    public function getResponseObject(): \stdClass;
+    public function getResponseObject(): stdClass;
 
     /**
-     * @return array
+     * @return Address[]
      */
     public function getOriginAddresses(): array;
 
     /**
-     * @return array
+     * @return Address[]
      */
     public function getDestinationAddresses(): array;
 
     /**
-     * @return array
+     * @return Row[]
      */
     public function getRows(): array;
 }

@@ -49,8 +49,6 @@ class Summary
 
     /**
      * Get the value of distance.
-     *
-     * @return Distance
      */
     public function getDistance(): Distance
     {
@@ -59,8 +57,6 @@ class Summary
 
     /**
      * Get the value of trafficTime.
-     *
-     * @return Duration
      */
     public function getTrafficTime(): Duration
     {
@@ -69,8 +65,6 @@ class Summary
 
     /**
      * Get the value of baseTime.
-     *
-     * @return Duration
      */
     public function getBaseTime(): Duration
     {
@@ -79,8 +73,6 @@ class Summary
 
     /**
      * Get the value of travelTime.
-     *
-     * @return Duration
      */
     public function getTravelTime(): Duration
     {
@@ -89,8 +81,6 @@ class Summary
 
     /**
      * Get the value of text.
-     *
-     * @return string
      */
     public function getText(): string
     {
@@ -99,8 +89,6 @@ class Summary
 
     /**
      * Get the value of flags.
-     *
-     * @return array
      */
     public function getFlags(): array
     {

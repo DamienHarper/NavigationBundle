@@ -9,6 +9,7 @@ use DH\NavigationBundle\Model\DistanceMatrix\Element;
 use DH\NavigationBundle\Model\DistanceMatrix\Row;
 use DH\NavigationBundle\Model\Duration;
 use Psr\Http\Message\ResponseInterface;
+use stdClass;
 
 class DistanceMatrixResponse implements DistanceMatrixResponseInterface
 {
@@ -18,22 +19,22 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     private $status;
 
     /**
-     * @var \stdClass
+     * @var stdClass
      */
     private $responseObject;
 
     /**
-     * @var Address[]|array
+     * @var Address[]
      */
     private $originAddresses;
 
     /**
-     * @var Address[]|array
+     * @var Address[]
      */
     private $destinationAddresses;
 
     /**
-     * @var array|\DH\NavigationBundle\Model\DistanceMatrix\Row[]
+     * @var Row[]
      */
     private $rows;
 
@@ -63,7 +64,7 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getStatus(): string
     {
@@ -71,15 +72,15 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     }
 
     /**
-     * @return \stdClass
+     * {@inheritdoc}
      */
-    public function getResponseObject(): \stdClass
+    public function getResponseObject(): stdClass
     {
         return $this->responseObject;
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getOriginAddresses(): array
     {
@@ -87,7 +88,7 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getDestinationAddresses(): array
     {
@@ -95,13 +96,16 @@ class DistanceMatrixResponse implements DistanceMatrixResponseInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getRows(): array
     {
         return $this->rows;
     }
 
+    /**
+     * @throws \Exception
+     */
     private function initialize(): void
     {
         $this->status = $this->responseObject->status;

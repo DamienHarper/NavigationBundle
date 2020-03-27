@@ -15,7 +15,7 @@ class Leg
     private $end;
 
     /**
-     * @var array|Step[]
+     * @var Step[]
      */
     private $steps;
 
@@ -26,24 +26,18 @@ class Leg
         $this->steps = $data['steps'] ?? [];
     }
 
-    /**
-     * @return array
-     */
     public function getStart(): array
     {
         return $this->start;
     }
 
-    /**
-     * @return array
-     */
     public function getEnd(): array
     {
         return $this->end;
     }
 
     /**
-     * @return array|Step[]
+     * @return Step[]
      */
     public function getSteps(): array
     {
