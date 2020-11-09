@@ -5,8 +5,10 @@ namespace DH\DoctrineAuditBundle\Tests;
 use DH\NavigationBundle\DependencyInjection\DHNavigationExtension;
 use DH\NavigationBundle\DHNavigationBundle;
 use DH\NavigationBundle\NavigationManager;
+use DH\NavigationBundle\Tests\TestClient;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Yaml\Yaml;
 
 abstract class BaseTest extends TestCase
@@ -22,6 +24,11 @@ abstract class BaseTest extends TestCase
 
         $bundle = new DHNavigationBundle();
         $bundle->build($container);
+
+        // Test client
+        $definition = new Definition(TestClient::class);
+        $definition->setShared(false);
+        $container->setDefinition('dh_navigation.test_http_client', $definition);
 
         $config = Yaml::parse(file_get_contents(__DIR__.'/Fixtures/dh_navigation.yaml'));
         $config = $this->setupFromEnvVars($config);
